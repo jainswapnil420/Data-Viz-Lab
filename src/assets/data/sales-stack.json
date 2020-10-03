@@ -1,0 +1,22 @@
+{
+    "sales": [
+        { "year": "2006", "shampoo": "10", "BodyWash": "15", "Ointment": "9", "Hair Gel": "6" },
+        { "year": "2007", "shampoo": "12", "BodyWash": "18", "Ointment": "9", "Hair Gel": "4" },
+        { "year": "2008", "shampoo": "05", "BodyWash": "20", "Ointment": "8", "Hair Gel": "2" },
+        { "year": "2009", "shampoo": "01", "BodyWash": "15", "Ointment": "5", "Hair Gel": "4" },
+        { "year": "2010", "shampoo": "02", "BodyWash": "10", "Ointment": "4", "Hair Gel": "2" },
+        { "year": "2011", "shampoo": "03", "BodyWash": "12", "Ointment": "6", "Hair Gel": "3" },
+        { "year": "2012", "shampoo": "04", "BodyWash": "15", "Ointment": "8", "Hair Gel": "1" },
+        { "year": "2013", "shampoo": "06", "BodyWash": "11", "Ointment": "9", "Hair Gel": "4" },
+        { "year": "2014", "shampoo": "10", "BodyWash": "13", "Ointment": "9", "Hair Gel": "5" },
+        { "year": "2015", "shampoo": "16", "BodyWash": "19", "Ointment": "6", "Hair Gel": "9" },
+        { "year": "2016", "shampoo": "19", "BodyWash": "17", "Ointment": "5", "Hair Gel": "7" }
+    ],
+    "colors": [
+        "steelblue",
+        "green",
+        "orange",
+        "purple",
+        "gray"
+    ]
+}

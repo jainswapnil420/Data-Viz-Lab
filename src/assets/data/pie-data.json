@@ -1,0 +1,25 @@
+{
+    "products": [{
+        "name": "Hair gel",
+        "sales": 20
+    }, {
+        "name": "Soap",
+        "sales": 15
+    }, {
+        "name": "Shampoo",
+        "sales": 25
+    }, {
+        "name": "BoadyWash",
+        "sales": 10
+    }, {
+        "name": "Cream",
+        "sales": 30
+    }],
+    "colors": [
+        "steelblue",
+        "green",
+        "orange",
+        "purple",
+        "gray"
+    ]
+}

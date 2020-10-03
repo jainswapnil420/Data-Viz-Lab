@@ -1,0 +1,113 @@
+{
+    "products": [{
+            "name": "Shampoo",
+            "sales": 45000,
+            "year": 2015
+        },
+        {
+            "name": "Shampoo",
+            "sales": 39000,
+            "year": 2016
+        }, {
+            "name": "Shampoo",
+            "sales": 30000,
+            "year": 2017
+        }, {
+            "name": "Shampoo",
+            "sales": 35000,
+            "year": 2018
+        }, {
+            "name": "Shampoo",
+            "sales": 28000,
+            "year": 2019
+        }, {
+            "name": "Shampoo",
+            "sales": 30000,
+            "year": 2020
+        }, {
+            "name": "Soap",
+            "sales": 35000,
+            "year": 2015
+        },
+        {
+            "name": "Soap",
+            "sales": 25000,
+            "year": 2016
+        }, {
+            "name": "Soap",
+            "sales": 25000,
+            "year": 2017
+        }, {
+            "name": "Soap",
+            "sales": 28000,
+            "year": 2018
+        }, {
+            "name": "Soap",
+            "sales": 23000,
+            "year": 2019
+        }, {
+            "name": "Soap",
+            "sales": 15000,
+            "year": 2020
+        },
+        {
+            "name": "Body Wash",
+            "sales": 25000,
+            "year": 2015
+        },
+        {
+            "name": "Body Wash",
+            "sales": 15000,
+            "year": 2016
+        }, {
+            "name": "Body Wash",
+            "sales": 22000,
+            "year": 2017
+        }, {
+            "name": "Body Wash",
+            "sales": 22000,
+            "year": 2018
+        }, {
+            "name": "Body Wash",
+            "sales": 18000,
+            "year": 2019
+        }, {
+            "name": "Body Wash",
+            "sales": 7000,
+            "year": 2020
+        }, {
+            "name": "Hair Oil",
+            "sales": 20000,
+            "year": 2015
+        },
+        {
+            "name": "Hair Oil",
+            "sales": 5000,
+            "year": 2016
+        }, {
+            "name": "Hair Oil",
+            "sales": 18000,
+            "year": 2017
+        }, {
+            "name": "Hair Oil",
+            "sales": 12000,
+            "year": 2018
+        }, {
+            "name": "Hair Oil",
+            "sales": 5600,
+            "year": 2019
+        }, {
+            "name": "Hair Oil",
+            "sales": 1300,
+            "year": 2020
+        }
+
+    ],
+    "colors": [
+        "steelblue",
+        "green",
+        "orange",
+        "purple",
+        "gray"
+    ]
+}
