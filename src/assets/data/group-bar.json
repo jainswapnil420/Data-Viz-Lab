@@ -1,0 +1,41 @@
+{
+    "groupData": [{
+            "key": 2015,
+            "values": [
+                { "grpName": "Shampoo", "grpValue": 26 },
+                { "grpName": "Hair Gel", "grpValue": 15 },
+                { "grpName": "Body Wash", "grpValue": 48 }
+            ]
+        },
+        {
+            "key": 2016,
+            "values": [
+                { "grpName": "Shampoo", "grpValue": 14 },
+                { "grpName": "Hair Gel", "grpValue": 23 },
+                { "grpName": "Body Wash", "grpValue": 5 }
+            ]
+        },
+        {
+            "key": 2017,
+            "values": [
+                { "grpName": "Shampoo", "grpValue": 32 },
+                { "grpName": "Hair Gel", "grpValue": 9 },
+                { "grpName": "Body Wash", "grpValue": 25 }
+            ]
+        },
+        {
+            "key": 2018,
+            "values": [
+                { "grpName": "Shampoo", "grpValue": 41 },
+                { "grpName": "Hair Gel", "grpValue": 55 },
+                { "grpName": "Body Wash", "grpValue": 26 }
+            ]
+        }
+    ],
+    "colors": [
+        "red",
+        "blue",
+        "green"
+    ]
+
+}

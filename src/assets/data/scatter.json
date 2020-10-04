@@ -1,0 +1,64 @@
+{
+    "machine": [{
+        "horsepower": 1.5,
+        "mileage": 40000,
+        "name": "suzuki"
+    }, {
+        "horsepower": 6.8,
+        "mileage": 20000,
+        "name": "I10"
+    }, {
+        "horsepower": 3,
+        "mileage": 15000,
+        "name": "I20"
+    }, {
+        "horsepower": 1.2,
+        "mileage": 15000,
+        "name": "suzuki alto"
+    }, {
+        "horsepower": 5,
+        "mileage": 20000,
+        "name": "suzuki ciaz"
+    }, {
+        "horsepower": 8,
+        "mileage": 20000,
+        "name": "honda"
+    }, {
+        "horsepower": 8.5,
+        "mileage": 15860,
+        "name": "honda city"
+    }, {
+        "horsepower": 2.7,
+        "mileage": 35150,
+        "name": "Mercedez"
+    }, {
+        "horsepower": 4.6,
+        "mileage": 31200,
+        "name": "Ferrari"
+    }, {
+        "horsepower": 9,
+        "mileage": 5600,
+        "name": "Ferrari F1"
+    }, {
+        "horsepower": 9,
+        "mileage": 23560,
+        "name": "BMW"
+    }, {
+        "horsepower": 4.5,
+        "mileage": 5860,
+        "name": "Mini Cooper"
+    }, {
+        "horsepower": 6.7,
+        "mileage": 28150,
+        "name": "Bently"
+    }, {
+        "horsepower": 3.6,
+        "mileage": 21200,
+        "name": "Aston Martin"
+    }, {
+        "horsepower": 3.58,
+        "mileage": 15600,
+        "name": "Hero Corp"
+    }],
+    "color": "steelblue"
+}

@@ -9,9 +9,12 @@ import { LineComponent } from './chart/line/line.component';
 import { AreaComponent } from './chart/area/area.component';
 import { StackComponent } from './chart/stack/stack.component';
 import { PieComponent } from './chart/pie/pie.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './helper/home/home.component';
 import { HeaderComponent } from './helper/header/header.component';
+import { HorizontalBarComponent } from './chart/horizontal-bar/horizontal-bar.component';
+import { DonutComponent } from './chart/donut/donut.component';
+import { GroupBarComponent } from './chart/group-bar/group-bar.component';
+import { ScatterPlotComponent } from './chart/scatter-plot/scatter-plot.component';
 
 @NgModule({
   declarations: [
@@ -22,11 +25,14 @@ import { HeaderComponent } from './helper/header/header.component';
     StackComponent,
     PieComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    HorizontalBarComponent,
+    DonutComponent,
+    GroupBarComponent,
+    ScatterPlotComponent
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     AppRountingModule
   ],
   providers: [ChartGenerationService],

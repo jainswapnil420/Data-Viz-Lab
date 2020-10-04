@@ -19,7 +19,7 @@ export class Margin{
 }
 
 export class ScaleProperties{
-    domain: [any, any];
+    domain: any;
     range: [number, number];
     padding?: number;
 }

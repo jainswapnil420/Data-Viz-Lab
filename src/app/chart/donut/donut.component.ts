@@ -4,11 +4,12 @@ import { Component, OnInit } from '@angular/core';
 import * as d3 from 'd3';
 
 @Component({
-  selector: 'app-pie',
-  templateUrl: './pie.component.html',
-  styleUrls: ['./pie.component.scss']
+  selector: 'app-donut',
+  templateUrl: './donut.component.html',
+  styleUrls: ['./donut.component.scss']
 })
-export class PieComponent implements OnInit {
+export class DonutComponent implements OnInit {
+
   data: [];
   options: Options;
   constructor( private chartGenerationService: ChartGenerationService) { }
@@ -24,7 +25,7 @@ export class PieComponent implements OnInit {
        xAxis : {padding: 0}
      };
       // tslint:disable-next-line:no-string-literal
-      this.drawChart('pie', data['products'], data['colors'], this.options);
+      this.drawChart('donut', data['products'], data['colors'], this.options);
     });
    }
 
@@ -37,12 +38,13 @@ export class PieComponent implements OnInit {
 
 
     const pie = d3.pie()
-        // tslint:disable-next-line:no-string-literal
-        .value(d => d['sales'])
-        .sort(null);
+    .padAngle(0.005)
+    .sort(null)
+    // tslint:disable-next-line:no-string-literal
+    .value(d => d['sales']);
     const arc = d3.arc()
-        .innerRadius(0)
-        .outerRadius(radius);
+    .innerRadius(radius * 0.75)
+    .outerRadius(radius);
     const chartContainer = selectorSvg.append('g')
                                  .classed('chart-container', true)
                                  .attr('transform', 'translate(' + radius + ',' + radius + ')');
@@ -50,12 +52,13 @@ export class PieComponent implements OnInit {
     const path = chartContainer.selectAll('path')
                 .data(pie(data));
 
-            // Enter new arcs
+    // Enter new arcs
     path.enter().append('path')
                 .attr('fill', (d, i) => colors[i])
                 .attr('d', arc)
                 .attr('stroke', 'white')
-                .attr('stroke-width', '6px');
+                .attr('stroke-width', '2px');
 
    }
+
 }
