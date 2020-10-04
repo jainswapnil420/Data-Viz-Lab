@@ -6,14 +6,15 @@ export class ChartGenerationService{
 
 buildSvg(elementID, options: Options): any{
      const svg =  d3.select('#' + elementID).append('svg');
-
+     let element = null;
      if (options.responsive){
-        svg.attr('viewBox', '0 0 ' + options.width + ' ' + options.height);
+        element = svg.attr('viewBox', '0 0 ' + options.width + ' ' + options.height)
+        .append('g');
      }else{
-         svg.attr('width', options.width).attr('height', options.height).style('background', options.backgroundColor)
+        element = svg.attr('width', options.width).attr('height', options.height).style('background', options.backgroundColor)
          .append('g');
      }
-     return svg;
+     return element;
 }
  computeBandScale(axisOptions: ScaleProperties): any{
      return d3.scaleBand()

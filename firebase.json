@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "dist/Data-Viz-Lab",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

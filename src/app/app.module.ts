@@ -11,6 +11,7 @@ import { StackComponent } from './chart/stack/stack.component';
 import { PieComponent } from './chart/pie/pie.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './helper/home/home.component';
+import { HeaderComponent } from './helper/header/header.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HomeComponent } from './helper/home/home.component';
     AreaComponent,
     StackComponent,
     PieComponent,
-    HomeComponent
+    HomeComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
