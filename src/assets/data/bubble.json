@@ -1,0 +1,89 @@
+{
+    "machine": [{
+        "horsepower": 1.5,
+        "mileage": 40000,
+        "size": 10,
+        "name": "suzuki"
+    }, {
+        "horsepower": 6.8,
+        "mileage": 20000,
+        "size": 20,
+        "name": "I10"
+    }, {
+        "horsepower": 3,
+        "mileage": 15000,
+        "size": 30,
+        "name": "I20"
+    }, {
+        "horsepower": 1.2,
+        "mileage": 15000,
+        "size": 28,
+        "name": "suzuki alto"
+    }, {
+        "horsepower": 5,
+        "mileage": 20000,
+        "size": 9,
+        "name": "suzuki ciaz"
+    }, {
+        "horsepower": 8,
+        "mileage": 20000,
+        "size": 19,
+        "name": "honda"
+    }, {
+        "horsepower": 8.5,
+        "mileage": 15860,
+        "size": 40,
+        "name": "honda city"
+    }, {
+        "horsepower": 2.7,
+        "mileage": 35150,
+        "size": 35,
+        "name": "Mercedez"
+    }, {
+        "horsepower": 4.6,
+        "mileage": 31200,
+        "size": 29,
+        "name": "Ferrari"
+    }, {
+        "horsepower": 9,
+        "mileage": 5600,
+        "size": 34,
+        "name": "Ferrari F1"
+    }, {
+        "horsepower": 9,
+        "mileage": 23560,
+        "size": 4,
+        "name": "BMW"
+    }, {
+        "horsepower": 4.5,
+        "mileage": 5860,
+        "size": 25,
+        "name": "Mini Cooper"
+    }, {
+        "horsepower": 6.7,
+        "mileage": 28150,
+        "size": 3,
+        "name": "Bently"
+    }, {
+        "horsepower": 3.6,
+        "mileage": 21200,
+        "size": 10,
+        "name": "Aston Martin"
+    }, {
+        "horsepower": 3.58,
+        "mileage": 15600,
+        "size": 16,
+        "name": "Hero Corp"
+    }],
+    "colors": ["#FF6633", "#FFB399", "#FF33FF", "#FFFF99", "#00B3E6",
+        "#E6B333", "#3366E6", "#999966", "#99FF99", "#B34D4D",
+        "#80B300", "#809900", "#E6B3B3", "#6680B3", "#66991A",
+        "#FF99E6", "#CCFF1A", "#FF1A66", "#E6331A", "#33FFCC",
+        "#66994D", "#B366CC", "#4D8000", "#B33300", "#CC80CC",
+        "#66664D", "#991AFF", "#E666FF", "#4DB3FF", "#1AB399",
+        "#E666B3", "#33991A", "#CC9999", "#B3B31A", "#00E680",
+        "#4D8066", "#809980", "#E6FF80", "#1AFF33", "#999933",
+        "#FF3380", "#CCCC00", "#66E64D", "#4D80CC", "#9900B3",
+        "#E64D66", "#4DB380", "#FF4D4D", "#99E6E6", "#6666FF"
+    ]
+}

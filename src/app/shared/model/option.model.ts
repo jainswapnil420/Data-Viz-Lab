@@ -20,6 +20,6 @@ export class Margin{
 
 export class ScaleProperties{
     domain: any;
-    range: [number, number];
+    range: any;
     padding?: number;
 }

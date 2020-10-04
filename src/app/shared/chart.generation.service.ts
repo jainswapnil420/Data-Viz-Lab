@@ -33,4 +33,9 @@ buildSvg(elementID, options: Options): any{
     .domain(axisOptions.domain)
     .padding(axisOptions.padding);
 }
+computeOrdinalScale(axisOptions: ScaleProperties): any{
+  return d3.scaleOrdinal()
+  .range(axisOptions.range)
+  .domain(axisOptions.domain);
+}
 }

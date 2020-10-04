@@ -15,6 +15,8 @@ import { HorizontalBarComponent } from './chart/horizontal-bar/horizontal-bar.co
 import { DonutComponent } from './chart/donut/donut.component';
 import { GroupBarComponent } from './chart/group-bar/group-bar.component';
 import { ScatterPlotComponent } from './chart/scatter-plot/scatter-plot.component';
+import { BubbleComponent } from './chart/bubble/bubble.component';
+import { ScatterWithShapesComponent } from './chart/scatter-with-shapes/scatter-with-shapes.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { ScatterPlotComponent } from './chart/scatter-plot/scatter-plot.componen
     HorizontalBarComponent,
     DonutComponent,
     GroupBarComponent,
-    ScatterPlotComponent
+    ScatterPlotComponent,
+    BubbleComponent,
+    ScatterWithShapesComponent
   ],
   imports: [
     BrowserModule,

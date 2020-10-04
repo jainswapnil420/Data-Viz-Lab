@@ -1,3 +1,5 @@
+import { ScatterWithShapesComponent } from './chart/scatter-with-shapes/scatter-with-shapes.component';
+import { BubbleComponent } from './chart/bubble/bubble.component';
 import { GroupBarComponent } from './chart/group-bar/group-bar.component';
 import { HorizontalBarComponent } from './chart/horizontal-bar/horizontal-bar.component';
 import { ScatterPlotComponent } from './chart/scatter-plot/scatter-plot.component';
@@ -21,7 +23,9 @@ const appRoutes: Routes = [
     {path: 'donut', component: DonutComponent},
     {path: 'scatter', component: ScatterPlotComponent},
     {path: 'horizontal-bar', component: HorizontalBarComponent},
-    {path: 'grouped-bar', component: GroupBarComponent}
+    {path: 'grouped-bar', component: GroupBarComponent},
+    {path: 'bubble', component: BubbleComponent},
+    {path: 'scatter-shape', component: ScatterWithShapesComponent}
 ];
 @NgModule({
     imports : [RouterModule.forRoot(appRoutes)],
