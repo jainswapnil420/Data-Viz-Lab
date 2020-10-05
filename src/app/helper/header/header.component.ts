@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
     this.router.events.subscribe((event: NavigationEnd ) => {
       if (event instanceof NavigationEnd) {
         this.isRoot = (event.url === '/' || event.url === undefined);
-        this.featureDisabled = ( event.url === '/pie' || event.url === '/donut');
+        this.featureDisabled = ( event.url === '/pie' || event.url === '/donut' || event.url === '/about');
     }
     });
 

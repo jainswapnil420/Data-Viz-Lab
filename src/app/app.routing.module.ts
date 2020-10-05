@@ -1,3 +1,4 @@
+import { AboutComponent } from './helper/about/about.component';
 import { ScatterWithShapesComponent } from './chart/scatter-with-shapes/scatter-with-shapes.component';
 import { BubbleComponent } from './chart/bubble/bubble.component';
 import { GroupBarComponent } from './chart/group-bar/group-bar.component';
@@ -15,6 +16,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
+    {path: 'about', component: AboutComponent},
     {path: 'bar', component: BarComponent},
     {path: 'line', component: LineComponent},
     {path: 'area', component: AreaComponent},

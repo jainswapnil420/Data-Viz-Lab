@@ -17,6 +17,7 @@ import { GroupBarComponent } from './chart/group-bar/group-bar.component';
 import { ScatterPlotComponent } from './chart/scatter-plot/scatter-plot.component';
 import { BubbleComponent } from './chart/bubble/bubble.component';
 import { ScatterWithShapesComponent } from './chart/scatter-with-shapes/scatter-with-shapes.component';
+import { AboutComponent } from './helper/about/about.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ScatterWithShapesComponent } from './chart/scatter-with-shapes/scatter-
     GroupBarComponent,
     ScatterPlotComponent,
     BubbleComponent,
-    ScatterWithShapesComponent
+    ScatterWithShapesComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
