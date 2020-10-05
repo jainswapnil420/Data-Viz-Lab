@@ -1,34 +1,47 @@
 import { Options, ScaleProperties } from './../../shared/model/option.model';
-import { ChartGenerationService } from './../../shared/chart.generation.service';
-import { Component, OnInit } from '@angular/core';
+import { ChartGenerationService } from '../../shared/service/chart.generation.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as d3 from 'd3';
+import { Subscription } from 'rxjs';
+import { InteractionService } from 'src/app/shared/service/interaction.service';
 
 @Component({
   selector: 'app-scatter-plot',
   templateUrl: './scatter-plot.component.html',
   styleUrls: ['./scatter-plot.component.scss']
 })
-export class ScatterPlotComponent implements OnInit {
+export class ScatterPlotComponent implements OnInit, OnDestroy {
   data: [];
   options: Options;
-  constructor( private chartGenerationService: ChartGenerationService) { }
+  enableXGridSubs: Subscription;
+  enableYGridSubs: Subscription;
+  enableXAxisSubs: Subscription;
+  enableYAxisSubs: Subscription;
+  constructor( private chartGenerationService: ChartGenerationService,
+               private interactionService: InteractionService) { }
 
   ngOnInit(): void {
     d3.json('/assets/data/scatter.json').then((data) => {
       this.options = {
-       width: 1200,
-       height: 520,
-       margin : {top: 20, right: 20, bottom: 40, left: 50},
+       width: 1300,
+       height: 460,
+       margin : {top: 10, right: 20, bottom: 20, left: 50},
        backgroundColor: '',
        responsive: true,
        xAxis : {padding: 0.1}
      };
       // tslint:disable-next-line:no-string-literal
-      this.drawChart('scatter', data['machine'], data['colors'], this.options);
+      this.drawChart('scatter', data['data'], data['colors'], this.options);
     });
+    this.interactionHandler();
    }
 
-
+   ngOnDestroy(): void{
+    if (this.enableXGridSubs) { this.enableXGridSubs.unsubscribe(); }
+    if (this.enableYGridSubs) { this.enableYGridSubs.unsubscribe(); }
+    if (this.enableXAxisSubs) { this.enableXAxisSubs.unsubscribe(); }
+    if (this.enableYAxisSubs) { this.enableYAxisSubs.unsubscribe(); }
+  }
 
 drawChart(id, data, colors: [], options: Options): void{
   const selectorSvg = this.chartGenerationService.buildSvg(id, options);
@@ -48,38 +61,80 @@ drawChart(id, data, colors: [], options: Options): void{
   const xAxis = this.chartGenerationService.computeLinearScale(xAxisOptions);
   const yAxis = this.chartGenerationService.computeLinearScale(yAxisOptions);
 
-  selectorSvg.attr('transform', 'translate(' + options.margin.left + ',' + options.margin.top + ')');
-   // add the x Axis
-  selectorSvg.append('g')
-             .classed('x-axis', true)
-             .attr('transform', 'translate(0,' + height + ')')
-             .call(d3.axisBottom(xAxis));
+   // Added X-Axis
+  const xAxisCall = d3.axisBottom(xAxis).ticks(10);
+  const yAxisCall = d3.axisLeft(yAxis).ticks(10);
 
-  selectorSvg.append('g').classed('y-axis', true).call(d3.axisLeft(yAxis));
+   // Add grid lines
+  const xGridBuilder = selectorSvg.append('g').classed('x-grid grid', true);
+  const yGridBuilder = selectorSvg.append('g').classed('y-grid grid', true);
+
+  xGridBuilder.attr('transform', 'translate(0,' + height + ')').call(xAxisCall.tickSize(-height));
+  yGridBuilder.call(yAxisCall.tickSize(-width));
+
+  selectorSvg.attr('transform', 'translate(' + options.margin.left + ',' + options.margin.top + ')');
 
   const chartContainer = selectorSvg.append('g').classed('chart-container', true);
 
   chartContainer.append('g')
-.attr('stroke', 'steelblue')
-.attr('stroke-width', 1.5)
-.attr('fill', 'none')
-.selectAll('circle')
-.data(data)
-.join('circle')
-.attr('cx', d => xAxis(d.horsepower))
-.attr('cy', d => yAxis(d.mileage))
-.attr('r', 3);
+        .attr('stroke', 'steelblue')
+        .attr('stroke-width', 1.5)
+        .attr('fill', 'none')
+        .selectAll('circle')
+        .data(data)
+        .join('circle')
+        .attr('cx', d => xAxis(d.horsepower))
+        .attr('cy', d => yAxis(d.mileage))
+        .attr('r', 3);
 
   chartContainer.append('g')
-.attr('font-family', 'sans-serif')
-.attr('font-size', 10)
-.selectAll('text')
-.data(data)
-.join('text')
-.attr('dy', '0.35em')
-.attr('x', d => xAxis(d.horsepower) + 7)
-.attr('y', d => yAxis(d.mileage))
-.text(d => d.name);
+        .attr('font-family', 'sans-serif')
+        .attr('font-size', 10)
+        .selectAll('text')
+        .data(data)
+        .join('text')
+        .attr('dy', '0.35em')
+        .attr('x', d => xAxis(d.horsepower) + 7)
+        .attr('y', d => yAxis(d.mileage))
+        .text(d => d.name);
  }
+ interactionHandler(): void{
+  // Handle hide or show x grid
+ this.enableXGridSubs = this.interactionService.enableXGrid.subscribe(res => {
+   if (res){
+     d3.selectAll('.x-grid .tick > line').classed('display-none', false);
+   }else{
+     d3.selectAll('.x-grid .tick > line').classed('display-none', true);
+   }
+ });
+ // Handle hide or show y grid
+ this.enableYGridSubs = this.interactionService.enableYGrid.subscribe(res => {
+   if (res){
+     d3.selectAll('.y-grid .tick > line').classed('display-none', false);
+   }else{
+     d3.selectAll('.y-grid .tick > line').classed('display-none', true);
+   }
+ });
+ // Handle hide or show X Axis
+ this.enableXAxisSubs = this.interactionService.enableXAxisLine.subscribe(res => {
+   if (res){
+     d3.selectAll('.x-grid path').classed('display-none', false);
+     d3.selectAll('.x-grid .tick > text').classed('display-none', false);
+   }else{
+     d3.selectAll('.x-grid path').classed('display-none', true);
+     d3.selectAll('.x-grid .tick > text').classed('display-none', true);
+   }
+ });
+ // Handle hide or show Y Axis
+ this.enableYAxisSubs = this.interactionService.enableYAxisLine.subscribe(res => {
+   if (res){
+     d3.selectAll('.y-grid path').classed('display-none', false);
+     d3.selectAll('.y-grid .tick > text').classed('display-none', false);
+   }else{
+     d3.selectAll('.y-grid path').classed('display-none', true);
+     d3.selectAll('.y-grid .tick > text').classed('display-none', true);
+   }
+ });
+}
 
 }

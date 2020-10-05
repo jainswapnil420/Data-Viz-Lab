@@ -1,5 +1,5 @@
 {
-    "machine": [{
+    "data": [{
         "horsepower": 1.5,
         "mileage": 40000,
         "size": 10,

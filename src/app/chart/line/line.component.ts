@@ -1,33 +1,46 @@
+import { InteractionService } from './../../shared/service/interaction.service';
 import { Options, ScaleProperties } from './../../shared/model/option.model';
-import { ChartGenerationService } from './../../shared/chart.generation.service';
-import { Component, OnInit } from '@angular/core';
+import { ChartGenerationService } from '../../shared/service/chart.generation.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as d3 from 'd3';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-line',
   templateUrl: './line.component.html',
   styleUrls: ['./line.component.scss']
 })
-export class LineComponent implements OnInit {
+export class LineComponent implements OnInit, OnDestroy {
   data: [];
   options: Options;
-  constructor( private chartGenerationService: ChartGenerationService) { }
+  enableXGridSubs: Subscription;
+  enableYGridSubs: Subscription;
+  enableXAxisSubs: Subscription;
+  enableYAxisSubs: Subscription;
+  constructor( private chartGenerationService: ChartGenerationService,
+               private interactionService: InteractionService) { }
 
   ngOnInit(): void {
     d3.json('/assets/data/products.json').then((data) => {
       this.options = {
        width: 1200,
-       height: 520,
-       margin : {top: 20, right: 20, bottom: 40, left: 50},
+       height: 440,
+       margin : {top: 10, right: 20, bottom: 20, left: 50},
        backgroundColor: '',
        responsive: true,
        xAxis : {padding: 0.1}
      };
       // tslint:disable-next-line:no-string-literal
-      this.drawChart('line', data['products'], data['colors'], this.options);
+      this.drawChart('line', data['data'], data['colors'], this.options);
     });
+    this.interactionHandler();
    }
-
+ngOnDestroy(): void{
+  if (this.enableXGridSubs) { this.enableXGridSubs.unsubscribe(); }
+  if (this.enableYGridSubs) { this.enableYGridSubs.unsubscribe(); }
+  if (this.enableXAxisSubs) { this.enableXAxisSubs.unsubscribe(); }
+  if (this.enableYAxisSubs) { this.enableYAxisSubs.unsubscribe(); }
+}
 
 drawChart(id, data, colors: [], options: Options): void{
   const selectorSvg = this.chartGenerationService.buildSvg(id, options);
@@ -36,7 +49,7 @@ drawChart(id, data, colors: [], options: Options): void{
   const xAxisOptions: ScaleProperties = {
                          domain : data.map((d) =>  d.year),
                          range: [0, width],
-                         padding: 0.1
+                         padding: 0
                        };
   const yAxisOptions: ScaleProperties = {
       // tslint:disable-next-line:no-string-literal
@@ -48,14 +61,18 @@ drawChart(id, data, colors: [], options: Options): void{
   const yAxis = this.chartGenerationService.computeLinearScale(yAxisOptions);
 
   selectorSvg.attr('transform', 'translate(' + options.margin.left + ',' + options.margin.top + ')');
-   // add the x Axis
-  selectorSvg.append('g')
-             .classed('x-axis', true)
-             .attr('transform', 'translate(0,' + height + ')')
-             .call(d3.axisBottom(xAxis));
+   // Added X-Axis
+  const xAxisCall = d3.axisBottom(xAxis);
+  const yAxisCall = d3.axisLeft(yAxis).ticks(5);
 
-  selectorSvg.append('g').classed('y-axis', true).call(d3.axisLeft(yAxis));
+  // Add grid lines
+  const xGridBuilder = selectorSvg.append('g').classed('x-grid grid', true);
+  const yGridBuilder = selectorSvg.append('g').classed('y-grid grid', true);
 
+  xGridBuilder.attr('transform', 'translate(0,' + height + ')').call(xAxisCall.ticks(5).tickSize(-height));
+  yGridBuilder.call(yAxisCall.tickSize(-width));
+
+  // Added chart container
   const chartContainer = selectorSvg.append('g').classed('chart-container', true);
         // Add the line
   const line = d3.line()
@@ -65,20 +82,58 @@ drawChart(id, data, colors: [], options: Options): void{
           // tslint:disable-next-line:no-string-literal
           .y((d) => yAxis(d['sales']));
 
-
   // tslint:disable-next-line:no-string-literal
   const products = Array.from(d3.group(data, d => d['name']), ([key, value]) => ({key, value}));
-  chartContainer.selectAll('line')
-  .data(products)
-  .enter()
-  .append('g')
-  .classed('line', true)
-  .append('path')
-        .datum((d) => d.value)
-        .attr('fill', 'none')
-        .attr('stroke', (d, i) => colors[i])
-        .attr('stroke-width', 1.5)
-        .attr('d', line);
 
+  chartContainer.selectAll('line')
+          .data(products)
+          .enter()
+          .append('g')
+          .classed('line', true)
+          .append('path')
+                .datum((d) => d.value)
+                .attr('fill', 'none')
+                .attr('stroke', (d, i) => colors[i])
+                .attr('stroke-width', 1.5)
+                .attr('d', line);
+}
+
+ interactionHandler(): void{
+   // Handle hide or show x grid
+  this.enableXGridSubs = this.interactionService.enableXGrid.subscribe(res => {
+    if (res){
+      d3.selectAll('.x-grid .tick > line').classed('display-none', false);
+    }else{
+      d3.selectAll('.x-grid .tick > line').classed('display-none', true);
+    }
+  });
+  // Handle hide or show y grid
+  this.enableYGridSubs = this.interactionService.enableYGrid.subscribe(res => {
+    if (res){
+      d3.selectAll('.y-grid .tick > line').classed('display-none', false);
+    }else{
+      d3.selectAll('.y-grid .tick > line').classed('display-none', true);
+    }
+  });
+  // Handle hide or show X Axis
+  this.enableXAxisSubs = this.interactionService.enableXAxisLine.subscribe(res => {
+    if (res){
+      d3.selectAll('.x-grid path').classed('display-none', false);
+      d3.selectAll('.x-grid .tick > text').classed('display-none', false);
+    }else{
+      d3.selectAll('.x-grid path').classed('display-none', true);
+      d3.selectAll('.x-grid .tick > text').classed('display-none', true);
+    }
+  });
+  // Handle hide or show Y Axis
+  this.enableYAxisSubs = this.interactionService.enableYAxisLine.subscribe(res => {
+    if (res){
+      d3.selectAll('.y-grid path').classed('display-none', false);
+      d3.selectAll('.y-grid .tick > text').classed('display-none', false);
+    }else{
+      d3.selectAll('.y-grid path').classed('display-none', true);
+      d3.selectAll('.y-grid .tick > text').classed('display-none', true);
+    }
+  });
  }
 }

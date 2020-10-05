@@ -1,5 +1,5 @@
 {
-    "sales": [
+    "data": [
         { "year": "2006", "shampoo": "10", "BodyWash": "15", "Ointment": "9", "Hair Gel": "6" },
         { "year": "2007", "shampoo": "12", "BodyWash": "18", "Ointment": "9", "Hair Gel": "4" },
         { "year": "2008", "shampoo": "05", "BodyWash": "20", "Ointment": "8", "Hair Gel": "2" },

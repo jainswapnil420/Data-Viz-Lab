@@ -1,5 +1,5 @@
 {
-    "employees": [{
+    "data": [{
         "name": "Swapnil",
         "id": 1,
         "salary": 40000

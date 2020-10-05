@@ -1,5 +1,5 @@
 import { AppRountingModule } from './app.routing.module';
-import { ChartGenerationService } from './shared/chart.generation.service';
+import { ChartGenerationService } from './shared/service/chart.generation.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 

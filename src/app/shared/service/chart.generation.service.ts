@@ -1,4 +1,4 @@
-import { Options, ScaleProperties } from './model/option.model';
+import { Options, ScaleProperties } from '../model/option.model';
 import * as d3 from 'd3';
 
 export class ChartGenerationService{

@@ -1,4 +1,4 @@
-import { ChartGenerationService } from './../../shared/chart.generation.service';
+import { ChartGenerationService } from '../../shared/service/chart.generation.service';
 import { Options } from './../../shared/model/option.model';
 import { Component, OnInit } from '@angular/core';
 import * as d3 from 'd3';
