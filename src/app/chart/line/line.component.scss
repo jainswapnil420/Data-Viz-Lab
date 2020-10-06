@@ -1,0 +1,9 @@
+                         :host::ng-deep {
+                            .circle {
+                                stroke-width: 2;
+                                fill: none;
+                                &:hover {
+                                    stroke-width: 6;
+                                }
+                            }
+                        }

@@ -10,4 +10,5 @@ export class InteractionService {
   enableYGrid = new Subject<boolean>();
   enableXAxisLine = new Subject<boolean>();
   enableYAxisLine = new Subject<boolean>();
+  hideOrShowLegend = new Subject<boolean>();
 }

@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class LineComponent implements OnInit, OnDestroy {
   data: [];
+  legendData = [];
   options: Options;
   enableXGridSubs: Subscription;
   enableYGridSubs: Subscription;
@@ -74,6 +75,8 @@ drawChart(id, data, colors: [], options: Options): void{
 
   // Added chart container
   const chartContainer = selectorSvg.append('g').classed('chart-container', true);
+  // tslint:disable-next-line:no-string-literal
+  const products = Array.from(d3.group(data, d => d['name']), ([key, value]) => ({key, value}));
         // Add the line
   const line = d3.line()
         .curve(d3.curveCardinal)
@@ -81,21 +84,41 @@ drawChart(id, data, colors: [], options: Options): void{
           .x((d) => xAxis(d['year']))
           // tslint:disable-next-line:no-string-literal
           .y((d) => yAxis(d['sales']));
+  const colorOptions: ScaleProperties = {
+            // tslint:disable-next-line:no-string-literal
+                                     domain : products.map(d => d.key),
+                                     range: colors
+                                   };
+  const colorScale = this.chartGenerationService.computeOrdinalScale(colorOptions);
 
-  // tslint:disable-next-line:no-string-literal
-  const products = Array.from(d3.group(data, d => d['name']), ([key, value]) => ({key, value}));
-
-  chartContainer.selectAll('line')
+  // Building data for legend
+  products.forEach((d, i) => {
+    this.legendData.push({id: i, name: d.key, color: colorScale(d.key)});
+  });
+  const container =  chartContainer.selectAll('line')
           .data(products)
           .enter()
           .append('g')
-          .classed('line', true)
-          .append('path')
+          .attr('id', (d, i) => 'item' + i)
+          .classed('line', true);
+
+  container.append('path')
                 .datum((d) => d.value)
                 .attr('fill', 'none')
-                .attr('stroke', (d, i) => colors[i])
+                .attr('stroke', (d) => colorScale(d[0].name))
                 .attr('stroke-width', 1.5)
                 .attr('d', line);
+
+  container.selectAll('circle')
+                .data((d) => d.value)
+                .enter()
+                .append('circle')
+                .classed('circle', true)
+                .attr('r', 3)
+                .attr('cx', (d) => xAxis(d.year))
+                .attr('cy', (d) => yAxis(d.sales))
+                .style('stroke', (d) => colorScale(d.name));
+
 }
 
  interactionHandler(): void{
@@ -133,6 +156,14 @@ drawChart(id, data, colors: [], options: Options): void{
     }else{
       d3.selectAll('.y-grid path').classed('display-none', true);
       d3.selectAll('.y-grid .tick > text').classed('display-none', true);
+    }
+  });
+  // Handle hide or show Legend
+  this.interactionService.hideOrShowLegend.subscribe(res => {
+    if (res){
+      d3.selectAll('#legend-container').classed('display-none', false);
+    }else{
+      d3.selectAll('#legend-container').classed('display-none', true);
     }
   });
  }

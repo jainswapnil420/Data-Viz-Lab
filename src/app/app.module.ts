@@ -18,6 +18,7 @@ import { ScatterPlotComponent } from './chart/scatter-plot/scatter-plot.componen
 import { BubbleComponent } from './chart/bubble/bubble.component';
 import { ScatterWithShapesComponent } from './chart/scatter-with-shapes/scatter-with-shapes.component';
 import { AboutComponent } from './helper/about/about.component';
+import { LegendComponent } from './shared/component/legend/legend.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AboutComponent } from './helper/about/about.component';
     ScatterPlotComponent,
     BubbleComponent,
     ScatterWithShapesComponent,
-    AboutComponent
+    AboutComponent,
+    LegendComponent
   ],
   imports: [
     BrowserModule,

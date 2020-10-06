@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="row">
+        <div class="col-6 col-sm-4 col-md-2" *ngFor="let item of dataset">
+            <span></span>
+            <div class="form-check">
+                <input type="checkbox" checked class="form-check-input" (click)="updateChart($event,item)">
+                <label class="form-check-label"><span class="color-icon" [ngStyle]="{'background': item.color}"></span> {{item.name}}</label>
+            </div>
+        </div>
+    </div>
+</div>

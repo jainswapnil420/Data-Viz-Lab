@@ -35,5 +35,8 @@ export class HeaderComponent implements OnInit {
   hideOrShowYAxisLine(event): void{
     this.interactionService.enableYAxisLine.next(event.target.checked);
   }
+  hideOrShowLegend(event): void{
+    this.interactionService.hideOrShowLegend.next(event.target.checked);
+  }
 
 }
