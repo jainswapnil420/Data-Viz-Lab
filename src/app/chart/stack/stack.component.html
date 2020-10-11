@@ -1,2 +1,13 @@
 <h2>Stack Chart</h2>
-<div id="stack"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="stack"></div>
+        </div>
+    </div>
+    <div class="row" id="legend-container">
+        <div class="col-md-12">
+            <app-legend [dataset]="legendData"></app-legend>
+        </div>
+    </div>
+</div>

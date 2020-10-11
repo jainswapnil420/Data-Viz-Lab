@@ -10,6 +10,7 @@ import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular
 export class HeaderComponent implements OnInit {
   isRoot: boolean;
   featureDisabled: boolean;
+  isLegendEnabled: boolean;
   constructor(private router: Router, private interactionService: InteractionService) { }
 
   ngOnInit(): void {
@@ -20,20 +21,23 @@ export class HeaderComponent implements OnInit {
     }
     });
 
+    this.interactionService.enableLegend.subscribe(res => {
+      this.isLegendEnabled = res;
+    });
   }
 
   hideOrShowXGrid(event): void{
-    this.interactionService.enableXGrid.next(event.target.checked);
+    this.interactionService.hideOrShowXGrid.next(event.target.checked);
   }
   hideOrShowYGrid(event): void{
-    this.interactionService.enableYGrid.next(event.target.checked);
+    this.interactionService.hideOrShowYGrid.next(event.target.checked);
   }
 
   hideOrShowXAxisLine(event): void{
-    this.interactionService.enableXAxisLine.next(event.target.checked);
+    this.interactionService.hideOrShowXAxisLine.next(event.target.checked);
   }
   hideOrShowYAxisLine(event): void{
-    this.interactionService.enableYAxisLine.next(event.target.checked);
+    this.interactionService.hideOrShowYAxisLine.next(event.target.checked);
   }
   hideOrShowLegend(event): void{
     this.interactionService.hideOrShowLegend.next(event.target.checked);

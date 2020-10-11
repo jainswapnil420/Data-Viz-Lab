@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InteractionService {
 
-  enableXGrid = new Subject<boolean>();
-  enableYGrid = new Subject<boolean>();
-  enableXAxisLine = new Subject<boolean>();
-  enableYAxisLine = new Subject<boolean>();
+  enableLegend = new BehaviorSubject(true);
+
+
+  hideOrShowXGrid = new Subject<boolean>();
+  hideOrShowYGrid = new Subject<boolean>();
+  hideOrShowXAxisLine = new Subject<boolean>();
+  hideOrShowYAxisLine = new Subject<boolean>();
   hideOrShowLegend = new Subject<boolean>();
 }

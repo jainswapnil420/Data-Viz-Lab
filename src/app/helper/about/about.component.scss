@@ -1,3 +1,23 @@
-/* .container-fluid {
-    background-image: url("/assets/profile/background.jpg");
-} */
+.container-fluid {
+    background: #343a40!important;
+    opacity: 0.95;
+    color: white;
+}
+
+hr {
+    border: 2px solid;
+}
+
+.profile-img {
+    height: 200px;
+    width: 100%;
+    object-fit: fill;
+}
+
+.description {
+    display: flex;
+}
+
+.rem-reduce {
+    font-size: 0.75rem;
+}

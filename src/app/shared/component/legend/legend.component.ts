@@ -7,9 +7,11 @@ import * as d3 from 'd3';
   styleUrls: ['./legend.component.scss']
 })
 export class LegendComponent {
-@Input() dataset: any;
+@Input() dataset: [];
 
   updateChart(event, item): void{
+  console.log( this.dataset);
+  console.log(item);
     d3.selectAll('#item' + item.id).classed('display-none', !event.target.checked);
   }
 }

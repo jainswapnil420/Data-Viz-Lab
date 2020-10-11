@@ -13,8 +13,8 @@ import { Subscription } from 'rxjs';
 export class BarComponent implements OnInit, OnDestroy {
   data: [];
   options: Options;
-  enableXGridSubs: Subscription;
-  enableYGridSubs: Subscription;
+  hideOrShowXGridSubs: Subscription;
+  hideOrShowYGridSubs: Subscription;
   enableXAxisSubs: Subscription;
   enableYAxisSubs: Subscription;
   constructor( private chartGenerationService: ChartGenerationService, private interactionService: InteractionService) { }
@@ -33,10 +33,11 @@ export class BarComponent implements OnInit, OnDestroy {
      this.drawChart('bar', data['data'], this.options);
    });
    this.interactionHandler();
+   this.interactionService.enableLegend.next(false);
   }
   ngOnDestroy(): void{
-    if (this.enableXGridSubs) { this.enableXGridSubs.unsubscribe(); }
-    if (this.enableYGridSubs) { this.enableYGridSubs.unsubscribe(); }
+    if (this.hideOrShowXGridSubs) { this.hideOrShowXGridSubs.unsubscribe(); }
+    if (this.hideOrShowYGridSubs) { this.hideOrShowYGridSubs.unsubscribe(); }
     if (this.enableXAxisSubs) { this.enableXAxisSubs.unsubscribe(); }
     if (this.enableYAxisSubs) { this.enableYAxisSubs.unsubscribe(); }
   }
@@ -88,7 +89,7 @@ drawChart(id, data, options: Options): void{
   }
   interactionHandler(): void{
     // Handle hide or show x grid
-   this.enableXGridSubs = this.interactionService.enableXGrid.subscribe(res => {
+   this.hideOrShowXGridSubs = this.interactionService.hideOrShowXGrid.subscribe(res => {
      if (res){
        d3.selectAll('.x-grid .tick > line').classed('display-none', false);
      }else{
@@ -96,7 +97,7 @@ drawChart(id, data, options: Options): void{
      }
    });
    // Handle hide or show y grid
-   this.enableYGridSubs = this.interactionService.enableYGrid.subscribe(res => {
+   this.hideOrShowYGridSubs = this.interactionService.hideOrShowYGrid.subscribe(res => {
      if (res){
        d3.selectAll('.y-grid .tick > line').classed('display-none', false);
      }else{
@@ -104,7 +105,7 @@ drawChart(id, data, options: Options): void{
      }
    });
    // Handle hide or show X Axis
-   this.enableXAxisSubs = this.interactionService.enableXAxisLine.subscribe(res => {
+   this.enableXAxisSubs = this.interactionService.hideOrShowXAxisLine.subscribe(res => {
      if (res){
        d3.selectAll('.x-grid path').classed('display-none', false);
        d3.selectAll('.x-grid .tick > text').classed('display-none', false);
@@ -114,7 +115,7 @@ drawChart(id, data, options: Options): void{
      }
    });
    // Handle hide or show Y Axis
-   this.enableYAxisSubs = this.interactionService.enableYAxisLine.subscribe(res => {
+   this.enableYAxisSubs = this.interactionService.hideOrShowYAxisLine.subscribe(res => {
      if (res){
        d3.selectAll('.y-grid path').classed('display-none', false);
        d3.selectAll('.y-grid .tick > text').classed('display-none', false);
