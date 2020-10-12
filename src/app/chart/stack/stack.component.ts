@@ -67,8 +67,7 @@ export class StackComponent implements OnInit, OnDestroy {
     keyGroupElements.forEach(d => keyGroup.push(d.key));
     const stack = d3.stack().keys(keyGroup);
     const stackSeries = stack(data);
-    console.log(stackSeries);
-    const max = d3.max(stackSeries[stackSeries.length - 1], (d) => d[1]);
+    const max = d3.max(stackSeries[stackSeries.length - 1], (d) => +d[1]);
     const xAxisOptions: ScaleProperties = {
                            domain : data.map((d) =>  d.year),
                            range: [0, width],
@@ -118,7 +117,9 @@ export class StackComponent implements OnInit, OnDestroy {
     .attr('width', xAxis.bandwidth())
     .attr('y', (d) => yAxis(d[1]))
     .attr('x', (d) => xAxis(d.data.year))
-    .attr('height', (d) => yAxis(d[0]) -  yAxis(d[1]));
+    .attr('height', (d) => {
+      return +yAxis(d[0]) - +yAxis(d[1]);
+    });
   }
   interactionHandler(): void{
     // Handle hide or show x grid
