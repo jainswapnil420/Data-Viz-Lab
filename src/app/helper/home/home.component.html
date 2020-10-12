@@ -1,122 +1,16 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-3 mt-3">
-            <a routerLink="/bar">
-                <div class="card">
-                    <img class="card-img-top" src="/assets/thumbnails/bar.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Bar Chart</h5>
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 mt-3" *ngFor='let component of components'>
+                <a [routerLink]="component.route">
+                    <div class="card">
+                        <img class="card-img-top" [src]="component.src" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{component.name}}</h5>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-3 mt-3">
-
-            <a routerLink="/line">
-                <div class="card">
-                    <img class="card-img-top" src="/assets/thumbnails/line.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Line Chart</h5>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-3 mt-3">
-            <a routerLink="/stack">
-                <div class="card">
-                    <img class="card-img-top" src="/assets/thumbnails/stack.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Stack Chart</h5>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-3 mt-3">
-            <a routerLink="/area">
-                <div class="card">
-                    <img class="card-img-top" src="/assets/thumbnails/area.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Area Chart</h5>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="row">
-
-        <div class="col-md-3 mt-3">
-            <a routerLink="/pie">
-                <div class="card">
-                    <img class="card-img-top" src="/assets/thumbnails/pie.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Pie Chart</h5>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-3 mt-3">
-            <a routerLink="/donut">
-                <div class="card">
-                    <img class="card-img-top" src="/assets/thumbnails/donut.jpg" alt="Donut Image Cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Donut Chart</h5>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-3 mt-3">
-            <a routerLink="/scatter">
-                <div class="card">
-                    <img class="card-img-top" src="/assets/thumbnails/scatter.jpg" alt="Scatter Image Cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Scatter Chart</h5>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-3 mt-3">
-            <a routerLink="/horizontal-bar">
-                <div class="card">
-                    <img class="card-img-top" src="/assets/thumbnails/horizontal-bar.jpg" alt="Horizontal Bar Image Cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Horizontal Bar Chart</h5>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="row">
-
-        <div class="col-md-3 mt-3">
-            <a routerLink="/grouped-bar">
-                <div class="card">
-                    <img class="card-img-top" src="/assets/thumbnails/group-bar.jpg" alt="Grouped Bar Image Cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Grouped Bar Chart</h5>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-md-3 mt-3">
-            <a routerLink="/bubble">
-                <div class="card">
-                    <img class="card-img-top" src="/assets/thumbnails/bubble.jpg" alt="Bubble Bar Image Cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Bubble Chart</h5>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-3 mt-3">
-            <a routerLink="/scatter-shape">
-                <div class="card">
-                    <img class="card-img-top" src="/assets/thumbnails/scatter-multi-shape.jpg" alt="Scatter Shape Image Cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Scatter with Multiple Shapes Chart</h5>
-                    </div>
-                </div>
-            </a>
+                </a>
+            </div>
         </div>
     </div>
 </div>
