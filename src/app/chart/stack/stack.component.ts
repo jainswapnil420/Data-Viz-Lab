@@ -32,18 +32,24 @@ export class StackComponent implements OnInit, OnDestroy {
        xAxis : {padding: 0.2}
      };
       // tslint:disable-next-line:no-string-literal
-      const keyGroupElements = [{key: 'AUDI', status: true, color: data['colors'][0]},
+      const keyGroupElements = [{key: 'AUDI', status: false, color: data['colors'][0]},
       // tslint:disable-next-line: no-string-literal
-      {key: 'BMW', status: true, color: data['colors'][1]},
+      {key: 'BMW', status: false, color: data['colors'][1]},
       // tslint:disable-next-line:no-string-literal
-      {key: 'Ferrari', status: true, color: data['colors'][2]},
+      {key: 'Ferrari', status: false, color: data['colors'][2]},
       // tslint:disable-next-line:no-string-literal
       {key: 'Mercedez', status: false, color: data['colors'][3]}];
+         // Building data for legend
+      keyGroupElements.forEach((d, i) => {
+        this.legendData.push({id: i, name: d.key, color: d.color, isMarked: d.status});
+      });
 
+      // tslint:disable-next-line:no-string-literal
       this.drawChart('stack', data['data'], data['colors'], keyGroupElements, this.options);
     });
     this.interactionHandler();
     this.interactionService.enableLegend.next(true);
+    this.interactionService.enableLegendCheckbox.next(false);
    }
    ngOnDestroy(): void{
     if (this.hideOrShowXGridSubs) { this.hideOrShowXGridSubs.unsubscribe(); }
@@ -51,17 +57,17 @@ export class StackComponent implements OnInit, OnDestroy {
     if (this.enableXAxisSubs) { this.enableXAxisSubs.unsubscribe(); }
     if (this.enableYAxisSubs) { this.enableYAxisSubs.unsubscribe(); }
   }
-   drawChart(id, data, colors: [],keyGroupElements, options: Options): void{
+   drawChart(id, data, colors: [], keyGroupElements, options: Options): void{
     const selectorSvg = this.chartGenerationService.buildSvg(id, options);
     const width = options.width - options.margin.left - options.margin.right;
     const height = options.height - options.margin.top - options.margin.bottom;
 
     // Transpose the data into layers
-    const filterOnStatus = keyGroupElements.filter((d) => d.status);
     const keyGroup = [];
-    filterOnStatus.forEach(d => keyGroup.push(d.key));
+    keyGroupElements.forEach(d => keyGroup.push(d.key));
     const stack = d3.stack().keys(keyGroup);
     const stackSeries = stack(data);
+    console.log(stackSeries);
     const max = d3.max(stackSeries[stackSeries.length - 1], (d) => d[1]);
     const xAxisOptions: ScaleProperties = {
                            domain : data.map((d) =>  d.year),
@@ -79,11 +85,6 @@ export class StackComponent implements OnInit, OnDestroy {
                                                          range: colors
                                                        };
     const colorScale = this.chartGenerationService.computeOrdinalScale(colorOptions);
-                              // Building data for legend
-    keyGroup.forEach((d, i) => {
-      let status = keyGroupElements.find((e)=> e.key==d);
-      this.legendData.push({id: i, name: d, color: colorScale(d), isMarked: true});
-    });
 
     const xAxis = this.chartGenerationService.computeBandScale(xAxisOptions);
     const yAxis = this.chartGenerationService.computeLinearScale(yAxisOptions);

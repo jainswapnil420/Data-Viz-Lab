@@ -36,6 +36,7 @@ export class LineComponent implements OnInit, OnDestroy {
     });
     this.interactionHandler();
     this.interactionService.enableLegend.next(true);
+    this.interactionService.enableLegendCheckbox.next(true);
    }
 ngOnDestroy(): void{
   if (this.hideOrShowXGridSubs) { this.hideOrShowXGridSubs.unsubscribe(); }

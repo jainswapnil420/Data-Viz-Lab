@@ -7,7 +7,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class InteractionService {
 
   enableLegend = new BehaviorSubject(true);
-
+  enableLegendCheckbox = new BehaviorSubject(false);
 
   hideOrShowXGrid = new Subject<boolean>();
   hideOrShowYGrid = new Subject<boolean>();

@@ -2,6 +2,7 @@ import { AppRountingModule } from './app.routing.module';
 import { ChartGenerationService } from './shared/service/chart.generation.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule }   from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { BarComponent } from './chart/bar/bar.component';
@@ -43,7 +44,8 @@ import { ContactComponent } from './helper/contact/contact.component';
   ],
   imports: [
     BrowserModule,
-    AppRountingModule
+    AppRountingModule,
+    FormsModule
   ],
   providers: [ChartGenerationService],
   bootstrap: [AppComponent]
