@@ -12,7 +12,7 @@ profile = [{name: 'WHO // ', value: 'SWAPNIL JAIN'},
 {name: 'WHEN // ', value: 'DEC,2012 - PRESENT'},
 {name: 'WHY // ', value: 'PASSION'}];
 
-technologies = ['Angular2+', 'D3.js', 'NodeJs', 'AGILE', 'HTML', 'CSS', 'JAVASCRIPT'];
+technologies = ['Angular2+','Bootstrap', 'D3.js', 'NodeJs', 'AGILE', 'HTML', 'CSS', 'JAVASCRIPT'];
 tools = ['VS Code', 'GIT', 'BITBUCKET', 'JIRA', 'JENKINS'];
   constructor() { }
 

@@ -1,4 +1,16 @@
-<app-header></app-header>
-<div class="container-fluid no-gutters p-0">
-    <router-outlet></router-outlet>
+<div class="container-fluid h-100">
+    <div class="row no-gutters p-0 h-100">
+        <div class="col p-0 d-flex flex-column h-100">
+            <div class='row p-0'>
+                <div class="col p-0">
+                    <app-header></app-header>
+                </div>
+            </div>
+            <div class='row router p-0 flex-grow-1'>
+                <div class="col">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
