@@ -1,48 +1,43 @@
-    .container-fluid {
-        background: #343a40!important;
-        opacity: 0.95;
-        color: white;
-        height: 100%;
-        .about {
-            hr {
-                border: 2px solid;
-            }
-        }
-        .personal {
-            font-size: 0.8rem;
-        }
+.about {
+    hr {
+        border: 2px solid;
     }
-    
-    .profile-img {
-        height: 200px;
-        width: 100%;
-        object-fit: fill;
-        border: 10px solid;
-    }
-    
-    .profile-description {
-        font-size: 0.7rem;
-    }
-    
-    .light-gray {
-        color: #999c9f;
-    }
-    
-    .description {
-        display: flex;
-    }
-    
-    .rem-reduce {
-        font-size: 0.75rem;
-    }
-    
-    .hobby-img {
-        height: 150px;
-        width: 100%;
-        object-fit: fill;
-        border: 10px solid;
-    }
-    
-    .company {
-        color: #9ebf90;
-    }
+}
+
+.personal {
+    font-size: 0.8rem;
+}
+
+.profile-img {
+    height: 200px;
+    width: 100%;
+    object-fit: fill;
+    border: 10px solid;
+}
+
+.profile-description {
+    font-size: 0.7rem;
+}
+
+.light-gray {
+    color: #999c9f;
+}
+
+.description {
+    display: flex;
+}
+
+.rem-reduce {
+    font-size: 0.75rem;
+}
+
+.hobby-img {
+    height: 150px;
+    width: 100%;
+    object-fit: fill;
+    border: 10px solid;
+}
+
+.company {
+    color: #9ebf90;
+}
