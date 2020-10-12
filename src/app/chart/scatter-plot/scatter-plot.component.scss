@@ -1,0 +1,11 @@
+:host ::ng-deep {
+    circle {
+        stroke: limegreen;
+        stroke-width: 1.5;
+        fill: none;
+    }
+    text {
+        fill: white;
+        font-size: 1rem;
+    }
+}

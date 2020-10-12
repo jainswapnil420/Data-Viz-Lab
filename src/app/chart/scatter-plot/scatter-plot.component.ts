@@ -25,7 +25,7 @@ export class ScatterPlotComponent implements OnInit, OnDestroy {
       this.options = {
        width: 1300,
        height: 460,
-       margin : {top: 10, right: 20, bottom: 20, left: 50},
+       margin : {top: 10, right: 20, bottom: 20, left: 60},
        backgroundColor: '',
        responsive: true,
        xAxis : {padding: 0.1}
@@ -77,9 +77,6 @@ drawChart(id, data, colors: [], options: Options): void{
   const chartContainer = selectorSvg.append('g').classed('chart-container', true);
 
   chartContainer.append('g')
-        .attr('stroke', 'steelblue')
-        .attr('stroke-width', 1.5)
-        .attr('fill', 'none')
         .selectAll('circle')
         .data(data)
         .join('circle')
@@ -88,8 +85,6 @@ drawChart(id, data, colors: [], options: Options): void{
         .attr('r', 3);
 
   chartContainer.append('g')
-        .attr('font-family', 'sans-serif')
-        .attr('font-size', 10)
         .selectAll('text')
         .data(data)
         .join('text')
