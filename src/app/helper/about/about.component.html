@@ -1,7 +1,14 @@
 <div class="container">
     <div class="row about">
         <div class="col-6 col-sm-6 col-md-6">
-            <h3>ABOUT</h3>
+            <div class="row d-flex">
+                <div>
+                    <h3>ABOUT</h3>
+                </div>
+
+                <div class="ml-auto">
+                    <a class="btn btn-light" href="/assets/Swapnil_Jain_Resume.pdf" target="_blank" ole="button">Resume</a></div>
+            </div>
             <hr class="mt-0">
             <div class="row" *ngFor="let item of profile">
                 <div class="col text-right profile-description light-gray">{{item.name}} </div>
@@ -18,8 +25,8 @@
             <h5>EXPERIENCE</h5>
             <ul>
                 <li>
-                    <h6 class='company rem-reduce'>TCS // FrontEnd Web Developer</h6>
-                    <h6 class='rem-reduce'>Dec,2012 - Present</h6>
+                    <h6 class='company rem-reduce '>TCS // FrontEnd Web Developer</h6>
+                    <h6 class='rem-reduce '>Dec,2012 - Present</h6>
                 </li>
             </ul>
         </div>
@@ -31,14 +38,14 @@
                         KNOWLEDGE
                     </h6>
                     <div class="row">
-                        <div *ngFor='let tech of technologies' class='col-md-6 rem-reduce light-gray'>{{tech}}
+                        <div *ngFor='let tech of technologies ' class='col-md-6 rem-reduce light-gray '>{{tech}}
                         </div>
                     </div>
                 </div>
                 <div class="col-6 col-sm-6 col-md-6">
                     <h6>TOOLS</h6>
                     <div class="row">
-                        <div *ngFor='let tool of tools' class='col-md-6 rem-reduce light-gray'>{{tool}}</div>
+                        <div *ngFor='let tool of tools ' class='col-md-6 rem-reduce light-gray '>{{tool}}</div>
                     </div>
                 </div>
             </div>
