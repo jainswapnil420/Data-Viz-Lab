@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row">
+    <div class="row" *ngIf="isLegendEnabled">
         <div class="col-6 col-sm-4 col-md-2" *ngFor="let item of dataset">
             <span></span>
             <div class="form-check">

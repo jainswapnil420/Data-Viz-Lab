@@ -11,19 +11,25 @@ import { Subscription } from 'rxjs';
 export class LegendComponent implements OnInit, OnDestroy{
 dataset: LegendData[];
 isCheckBoxEnable: boolean;
-enableLegendSub: Subscription;
+isLegendEnabled: boolean;
+enableLegendCheckboxSub: Subscription;
+hideLegendSub: Subscription;
 legendDataSub: Subscription;
 constructor(private interactionService: InteractionService){}
 
 ngOnInit(): void {
-this.enableLegendSub = this.interactionService.enableLegendCheckbox.subscribe((res: boolean) => {
+this.enableLegendCheckboxSub = this.interactionService.enableLegendCheckbox.subscribe((res: boolean) => {
   this.isCheckBoxEnable = res;
+});
+this.hideLegendSub = this.interactionService.hideLegend.subscribe(res => {
+  this.isLegendEnabled = !res;
 });
 this.legendDataSub = this.interactionService.legendData.subscribe((res: LegendData[]) => this.dataset = res);
 }
 ngOnDestroy(): void{
-if (this.enableLegendSub) { this.enableLegendSub.unsubscribe(); }
+if (this.enableLegendCheckboxSub) { this.enableLegendCheckboxSub.unsubscribe(); }
 if (this.legendDataSub) { this.legendDataSub.unsubscribe(); }
+if (this.hideLegendSub) { this.hideLegendSub.unsubscribe(); }
 }
 updateChart(event, item): void{
   item.status =  event.target.checked;

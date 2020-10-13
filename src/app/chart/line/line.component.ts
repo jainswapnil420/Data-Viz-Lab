@@ -142,7 +142,7 @@ drawChart(id: string, data, legendData: LegendData[], options: Options): void{
 
  interactionHandler(): void{
    // Handle hide or show x grid
-  this.hideOrShowXGridSubs = this.interactionService.hideOrShowXGrid.subscribe(res => {
+  this.hideOrShowXGridSubs = this.interactionService.hideXGrid.subscribe(res => {
     if (res){
       d3.selectAll('.x-grid .tick > line').classed('display-none', false);
     }else{
@@ -150,7 +150,7 @@ drawChart(id: string, data, legendData: LegendData[], options: Options): void{
     }
   });
   // Handle hide or show y grid
-  this.hideOrShowYGridSubs = this.interactionService.hideOrShowYGrid.subscribe(res => {
+  this.hideOrShowYGridSubs = this.interactionService.hideYGrid.subscribe(res => {
     if (res){
       d3.selectAll('.y-grid .tick > line').classed('display-none', false);
     }else{
@@ -158,7 +158,7 @@ drawChart(id: string, data, legendData: LegendData[], options: Options): void{
     }
   });
   // Handle hide or show X Axis
-  this.enableXAxisSubs = this.interactionService.hideOrShowXAxisLine.subscribe(res => {
+  this.enableXAxisSubs = this.interactionService.hideXAxisLine.subscribe(res => {
     if (res){
       d3.selectAll('.x-grid path').classed('display-none', false);
       d3.selectAll('.x-grid .tick > text').classed('display-none', false);
@@ -168,21 +168,13 @@ drawChart(id: string, data, legendData: LegendData[], options: Options): void{
     }
   });
   // Handle hide or show Y Axis
-  this.enableYAxisSubs = this.interactionService.hideOrShowYAxisLine.subscribe(res => {
+  this.enableYAxisSubs = this.interactionService.hideYAxisLine.subscribe(res => {
     if (res){
       d3.selectAll('.y-grid path').classed('display-none', false);
       d3.selectAll('.y-grid .tick > text').classed('display-none', false);
     }else{
       d3.selectAll('.y-grid path').classed('display-none', true);
       d3.selectAll('.y-grid .tick > text').classed('display-none', true);
-    }
-  });
-  // Handle hide or show Legend
-  this.interactionService.hideOrShowLegend.subscribe(res => {
-    if (res){
-      d3.selectAll('#legend-container').classed('display-none', false);
-    }else{
-      d3.selectAll('#legend-container').classed('display-none', true);
     }
   });
   this.legendChangeSub =  this.interactionService.legendData.subscribe((res: LegendData[]) => {

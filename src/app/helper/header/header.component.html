@@ -14,23 +14,23 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <div class="custom-control custom-checkbox dropdown-item">
-                        <input type="checkbox" checked class="custom-control-input" id="customCheck1" (click)="hideOrShowXGrid($event)">
+                        <input type="checkbox" checked class="custom-control-input" id="customCheck1" (click)="hideXGrid($event)">
                         <label class="custom-control-label" for="customCheck1">X Grid</label>
                     </div>
                     <div class="custom-control custom-checkbox dropdown-item">
-                        <input type="checkbox" checked class="custom-control-input" id="customCheck2" (click)="hideOrShowYGrid($event)">
+                        <input type="checkbox" checked class="custom-control-input" id="customCheck2" (click)="hideYGrid($event)">
                         <label class="custom-control-label" for="customCheck2">Y Grid</label>
                     </div>
                     <div class="custom-control custom-checkbox dropdown-item">
-                        <input type="checkbox" checked class="custom-control-input" id="customCheck3" (click)="hideOrShowXAxisLine($event)">
+                        <input type="checkbox" checked class="custom-control-input" id="customCheck3" (click)="hideXAxisLine($event)">
                         <label class="custom-control-label" for="customCheck3">X-Axis</label>
                     </div>
                     <div class="custom-control custom-checkbox dropdown-item">
-                        <input type="checkbox" checked class="custom-control-input" id="customCheck4" (click)="hideOrShowYAxisLine($event)">
+                        <input type="checkbox" checked class="custom-control-input" id="customCheck4" (click)="hideYAxisLine($event)">
                         <label class="custom-control-label" for="customCheck4">Y-Axis</label>
                     </div>
                     <div *ngIf="isLegendEnabled" class="custom-control custom-checkbox dropdown-item">
-                        <input type="checkbox" checked class="custom-control-input" id="customCheck5" (click)="hideOrShowLegend($event)">
+                        <input type="checkbox" checked class="custom-control-input" id="customCheck5" (click)="hideLegend($event)">
                         <label class="custom-control-label" for="customCheck5">Legend</label>
                     </div>
                 </div>

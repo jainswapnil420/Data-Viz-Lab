@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
     this.router.events.subscribe((event: NavigationEnd ) => {
       if (event instanceof NavigationEnd) {
         this.isRoot = (event.url === '/' || event.url === undefined);
-        this.featureDisabled = ( event.url === '/pie' || event.url === '/donut' || event.url === '/about'|| event.url === '/contact');
+        this.featureDisabled = ( event.url === '/pie' || event.url === '/donut' || event.url === '/about' || event.url === '/contact');
     }
     });
 
@@ -26,21 +26,21 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  hideOrShowXGrid(event): void{
-    this.interactionService.hideOrShowXGrid.next(event.target.checked);
+  hideXGrid(event): void{
+    this.interactionService.hideXGrid.next(event.target.checked);
   }
-  hideOrShowYGrid(event): void{
-    this.interactionService.hideOrShowYGrid.next(event.target.checked);
+  hideYGrid(event): void{
+    this.interactionService.hideYGrid.next(event.target.checked);
   }
 
-  hideOrShowXAxisLine(event): void{
-    this.interactionService.hideOrShowXAxisLine.next(event.target.checked);
+  hideXAxisLine(event): void{
+    this.interactionService.hideXAxisLine.next(event.target.checked);
   }
-  hideOrShowYAxisLine(event): void{
-    this.interactionService.hideOrShowYAxisLine.next(event.target.checked);
+  hideYAxisLine(event): void{
+    this.interactionService.hideYAxisLine.next(event.target.checked);
   }
-  hideOrShowLegend(event): void{
-    this.interactionService.hideOrShowLegend.next(event.target.checked);
+  hideLegend(event): void{
+    this.interactionService.hideLegend.next(event.target.checked);
   }
 
 }
