@@ -1,3 +1,4 @@
+import { LegendData } from './../../shared/model/legend.model';
 import { InteractionService } from './../../shared/service/interaction.service';
 import { Options, ScaleProperties } from './../../shared/model/option.model';
 import { ChartGenerationService } from '../../shared/service/chart.generation.service';
@@ -12,18 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class LineComponent implements OnInit, OnDestroy {
   data: [];
-  legendData = [];
-  options: Options;
-  hideOrShowXGridSubs: Subscription;
-  hideOrShowYGridSubs: Subscription;
-  enableXAxisSubs: Subscription;
-  enableYAxisSubs: Subscription;
-  constructor( private chartGenerationService: ChartGenerationService,
-               private interactionService: InteractionService) { }
-
-  ngOnInit(): void {
-    d3.json('/assets/data/products.json').then((data) => {
-      this.options = {
+  options: Options =  {
        width: 1200,
        height: 440,
        margin : {top: 10, right: 20, bottom: 20, left: 50},
@@ -31,8 +21,29 @@ export class LineComponent implements OnInit, OnDestroy {
        responsive: true,
        xAxis : {padding: 0.1}
      };
+  hideOrShowXGridSubs: Subscription;
+  hideOrShowYGridSubs: Subscription;
+  enableXAxisSubs: Subscription;
+  enableYAxisSubs: Subscription;
+  legendChangeSub: Subscription;
+  constructor( private chartGenerationService: ChartGenerationService,
+               private interactionService: InteractionService) { }
+
+  ngOnInit(): void {
+    d3.json('/assets/data/products.json').then((data) => {
       // tslint:disable-next-line:no-string-literal
-      this.drawChart('line', data['data'], data['colors'], this.options);
+      this.data = data['data'];
+      // tslint:disable-next-line:no-string-literal
+      const legendDataArray =  this.prepareLegendData(data['colors']);
+      const chartData = [];
+      legendDataArray.forEach((d) => {
+       if (d.status){
+         // tslint:disable-next-line:no-string-literal
+        chartData.push(...this.data.filter(e => e['name'] === d['name']));
+       }
+     });
+      // tslint:disable-next-line:no-string-literal
+      this.drawChart('line', chartData, legendDataArray, this.options);
     });
     this.interactionHandler();
     this.interactionService.enableLegend.next(true);
@@ -43,14 +54,27 @@ ngOnDestroy(): void{
   if (this.hideOrShowYGridSubs) { this.hideOrShowYGridSubs.unsubscribe(); }
   if (this.enableXAxisSubs) { this.enableXAxisSubs.unsubscribe(); }
   if (this.enableYAxisSubs) { this.enableYAxisSubs.unsubscribe(); }
+  if (this.legendChangeSub){this.legendChangeSub.unsubscribe(); }
+}
+prepareLegendData(colors): LegendData[]{
+  // tslint:disable-next-line:no-string-literal
+  const products = Array.from(d3.group(this.data, d => d['name']), ([key, value]) => ({key, value}));
+  const legendData: LegendData[] = [];
+  products.forEach((d, i) => {legendData.push({id: i, name: d.key, status: true , color: colors[i]}); });
+  this.interactionService.legendData.next(legendData);
+  return legendData;
 }
 
-drawChart(id, data, colors: [], options: Options): void{
+drawChart(id: string, data, legendData: LegendData[], options: Options): void{
+  d3.select('#' + id).html('');
   const selectorSvg = this.chartGenerationService.buildSvg(id, options);
   const width = options.width - options.margin.left - options.margin.right;
   const height = options.height - options.margin.top - options.margin.bottom;
+  // tslint:disable-next-line:no-string-literal
+  const products = Array.from(d3.group(data, d => d['name']), ([key, value]) => ({key, value}));
   const xAxisOptions: ScaleProperties = {
-                         domain : data.map((d) =>  d.year),
+                         // tslint:disable-next-line:no-string-literal
+                         domain : products[0].value.map((d) =>  d['year']),
                          range: [0, width],
                          padding: 0
                        };
@@ -77,8 +101,6 @@ drawChart(id, data, colors: [], options: Options): void{
 
   // Added chart container
   const chartContainer = selectorSvg.append('g').classed('chart-container', true);
-  // tslint:disable-next-line:no-string-literal
-  const products = Array.from(d3.group(data, d => d['name']), ([key, value]) => ({key, value}));
         // Add the line
   const line = d3.line()
         .curve(d3.curveCardinal)
@@ -88,15 +110,10 @@ drawChart(id, data, colors: [], options: Options): void{
           .y((d) => yAxis(d['sales']));
   const colorOptions: ScaleProperties = {
             // tslint:disable-next-line:no-string-literal
-                                     domain : products.map(d => d.key),
-                                     range: colors
+                                     domain : legendData.map(d => d.name),
+                                     range: legendData.map(d => d.color)
                                    };
   const colorScale = this.chartGenerationService.computeOrdinalScale(colorOptions);
-
-  // Building data for legend
-  products.forEach((d, i) => {
-    this.legendData.push({id: i, name: d.key, color: colorScale(d.key)});
-  });
   const container =  chartContainer.selectAll('line')
           .data(products)
           .enter()
@@ -168,5 +185,18 @@ drawChart(id, data, colors: [], options: Options): void{
       d3.selectAll('#legend-container').classed('display-none', true);
     }
   });
+  this.legendChangeSub =  this.interactionService.legendData.subscribe((res: LegendData[]) => {
+    if (this.data && this.data.length > 0){
+      const chartData = [];
+      res.forEach((d) => {
+        if (d.status){
+          // tslint:disable-next-line:no-string-literal
+         chartData.push(...this.data.filter(e => e['name'] === d['name']));
+        }
+      });
+       // tslint:disable-next-line:no-string-literal
+      this.drawChart('line', chartData, res, this.options);
+    }
+});
  }
 }

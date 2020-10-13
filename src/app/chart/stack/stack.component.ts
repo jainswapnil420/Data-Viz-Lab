@@ -26,6 +26,7 @@ export class StackComponent implements OnInit, OnDestroy {
   hideOrShowYGridSubs: Subscription;
   enableXAxisSubs: Subscription;
   enableYAxisSubs: Subscription;
+  legendChangeSub: Subscription;
   constructor( private chartGenerationService: ChartGenerationService,
                private interactionService: InteractionService) { }
   ngOnInit(): void {
@@ -37,7 +38,7 @@ export class StackComponent implements OnInit, OnDestroy {
       // tslint:disable-next-line:no-string-literal
       {id: 3, name: 'Ferrari', status: true, color: data['colors'][2]},
       // tslint:disable-next-line:no-string-literal
-      {id: 4, name: 'Mercedez', status: false, color: data['colors'][3]}];
+      {id: 4, name: 'Mercedez', status: true, color: data['colors'][3]}];
 
       this.interactionService.legendData.next(keyGroupElements);
       // tslint:disable-next-line:no-string-literal
@@ -54,6 +55,7 @@ export class StackComponent implements OnInit, OnDestroy {
     if (this.hideOrShowYGridSubs) { this.hideOrShowYGridSubs.unsubscribe(); }
     if (this.enableXAxisSubs) { this.enableXAxisSubs.unsubscribe(); }
     if (this.enableYAxisSubs) { this.enableYAxisSubs.unsubscribe(); }
+    if (this.legendChangeSub){this.legendChangeSub.unsubscribe(); }
   }
    drawChart(id, data, keyGroupElements, options: Options): void{
     d3.select('#' + id).html('');
@@ -164,7 +166,7 @@ export class StackComponent implements OnInit, OnDestroy {
      }
    });
 
-   this.interactionService.legendData.subscribe((res: LegendData) => {
+   this.legendChangeSub =  this.interactionService.legendData.subscribe((res: LegendData[]) => {
      if (this.data && this.data.length > 0){
       this.drawChart('stack', this.data, res, this.options);
      }
