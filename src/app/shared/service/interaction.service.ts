@@ -1,3 +1,4 @@
+import { LegendData } from './../model/legend.model';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
@@ -8,6 +9,7 @@ export class InteractionService {
 
   enableLegend = new BehaviorSubject(true);
   enableLegendCheckbox = new BehaviorSubject(false);
+  legendData = new Subject<LegendData[]>();
 
   hideOrShowXGrid = new Subject<boolean>();
   hideOrShowYGrid = new Subject<boolean>();

@@ -1,3 +1,4 @@
+import { LegendData } from './../../shared/model/legend.model';
 import { InteractionService } from './../../shared/service/interaction.service';
 import { ChartGenerationService } from '../../shared/service/chart.generation.service';
 import { Options, ScaleProperties } from './../../shared/model/option.model';
@@ -13,8 +14,14 @@ import { Subscription } from 'rxjs';
 export class StackComponent implements OnInit, OnDestroy {
 
   data: [];
-  legendData = [];
-  options: Options;
+  options: Options = {
+    width: 1300,
+    height: 460,
+    margin : {top: 20, right: 20, bottom: 20, left: 50},
+    backgroundColor: '',
+    responsive: true,
+    xAxis : {padding: 0.2}
+  };
   hideOrShowXGridSubs: Subscription;
   hideOrShowYGridSubs: Subscription;
   enableXAxisSubs: Subscription;
@@ -22,34 +29,25 @@ export class StackComponent implements OnInit, OnDestroy {
   constructor( private chartGenerationService: ChartGenerationService,
                private interactionService: InteractionService) { }
   ngOnInit(): void {
-    d3.json('/assets/data/sales-stack.json').then((data) => {
-      this.options = {
-       width: 1300,
-       height: 460,
-       margin : {top: 20, right: 20, bottom: 20, left: 50},
-       backgroundColor: '',
-       responsive: true,
-       xAxis : {padding: 0.2}
-     };
+    d3.json('/assets/data/sales-stack.json').then((data: []) => {
       // tslint:disable-next-line:no-string-literal
-      const keyGroupElements = [{key: 'AUDI', status: false, color: data['colors'][0]},
+      const keyGroupElements = [{id: 1, name: 'AUDI', status: true, color: data['colors'][0]},
       // tslint:disable-next-line: no-string-literal
-      {key: 'BMW', status: false, color: data['colors'][1]},
+      {id: 2, name: 'BMW', status: true, color: data['colors'][1]},
       // tslint:disable-next-line:no-string-literal
-      {key: 'Ferrari', status: false, color: data['colors'][2]},
+      {id: 3, name: 'Ferrari', status: true, color: data['colors'][2]},
       // tslint:disable-next-line:no-string-literal
-      {key: 'Mercedez', status: false, color: data['colors'][3]}];
-         // Building data for legend
-      keyGroupElements.forEach((d, i) => {
-        this.legendData.push({id: i, name: d.key, color: d.color, isMarked: d.status});
-      });
+      {id: 4, name: 'Mercedez', status: false, color: data['colors'][3]}];
 
+      this.interactionService.legendData.next(keyGroupElements);
       // tslint:disable-next-line:no-string-literal
-      this.drawChart('stack', data['data'], data['colors'], keyGroupElements, this.options);
+      this.data = data['data'];
+      // tslint:disable-next-line:no-string-literal
+      this.drawChart('stack', data['data'], keyGroupElements, this.options);
     });
     this.interactionHandler();
     this.interactionService.enableLegend.next(true);
-    this.interactionService.enableLegendCheckbox.next(false);
+    this.interactionService.enableLegendCheckbox.next(true);
    }
    ngOnDestroy(): void{
     if (this.hideOrShowXGridSubs) { this.hideOrShowXGridSubs.unsubscribe(); }
@@ -57,14 +55,20 @@ export class StackComponent implements OnInit, OnDestroy {
     if (this.enableXAxisSubs) { this.enableXAxisSubs.unsubscribe(); }
     if (this.enableYAxisSubs) { this.enableYAxisSubs.unsubscribe(); }
   }
-   drawChart(id, data, colors: [], keyGroupElements, options: Options): void{
+   drawChart(id, data, keyGroupElements, options: Options): void{
+    d3.select('#' + id).html('');
     const selectorSvg = this.chartGenerationService.buildSvg(id, options);
     const width = options.width - options.margin.left - options.margin.right;
     const height = options.height - options.margin.top - options.margin.bottom;
 
     // Transpose the data into layers
     const keyGroup = [];
-    keyGroupElements.forEach(d => keyGroup.push(d.key));
+    const colors = [];
+    // Managing keys and data for stack chart
+    keyGroupElements.filter(items => !!items.status).forEach(item => {
+      keyGroup.push(item.name);
+      colors.push(item.color);
+    });
     const stack = d3.stack().keys(keyGroup);
     const stackSeries = stack(data);
     const max = d3.max(stackSeries[stackSeries.length - 1], (d) => +d[1]);
@@ -121,6 +125,7 @@ export class StackComponent implements OnInit, OnDestroy {
       return +yAxis(d[0]) - +yAxis(d[1]);
     });
   }
+
   interactionHandler(): void{
     // Handle hide or show x grid
    this.hideOrShowXGridSubs = this.interactionService.hideOrShowXGrid.subscribe(res => {
@@ -158,5 +163,12 @@ export class StackComponent implements OnInit, OnDestroy {
        d3.selectAll('.y-grid .tick > text').classed('display-none', true);
      }
    });
+
+   this.interactionService.legendData.subscribe((res: LegendData) => {
+     if (this.data && this.data.length > 0){
+      this.drawChart('stack', this.data, res, this.options);
+     }
+});
+
   }
 }
