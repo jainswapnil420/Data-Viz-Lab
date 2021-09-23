@@ -2,7 +2,7 @@ import { AppRountingModule } from './app.routing.module';
 import { ChartGenerationService } from './shared/service/chart.generation.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { BarComponent } from './chart/bar/bar.component';
@@ -21,6 +21,7 @@ import { ScatterWithShapesComponent } from './chart/scatter-with-shapes/scatter-
 import { AboutComponent } from './helper/about/about.component';
 import { LegendComponent } from './shared/component/legend/legend.component';
 import { ContactComponent } from './helper/contact/contact.component';
+import { SidemenuComponent } from './helper/sidemenu/sidemenu.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ContactComponent } from './helper/contact/contact.component';
     ScatterWithShapesComponent,
     AboutComponent,
     LegendComponent,
-    ContactComponent
+    ContactComponent,
+    SidemenuComponent
   ],
   imports: [
     BrowserModule,

@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 export class LegendComponent implements OnInit, OnDestroy{
 dataset: LegendData[];
 isCheckBoxEnable: boolean;
-isLegendEnabled: boolean;
+hideLegend: boolean;
 enableLegendCheckboxSub: Subscription;
 hideLegendSub: Subscription;
 legendDataSub: Subscription;
@@ -22,7 +22,7 @@ this.enableLegendCheckboxSub = this.interactionService.enableLegendCheckbox.subs
   this.isCheckBoxEnable = res;
 });
 this.hideLegendSub = this.interactionService.hideLegend.subscribe(res => {
-  this.isLegendEnabled = !res;
+  this.hideLegend = res;
 });
 this.legendDataSub = this.interactionService.legendData.subscribe((res: LegendData[]) => this.dataset = res);
 }

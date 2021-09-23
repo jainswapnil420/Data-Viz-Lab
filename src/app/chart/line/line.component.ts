@@ -30,7 +30,7 @@ export class LineComponent implements OnInit, OnDestroy {
                private interactionService: InteractionService) { }
 
   ngOnInit(): void {
-    d3.json('/assets/data/products.json').then((data) => {
+  d3.json('/assets/data/products.json').then((data) => {
       // tslint:disable-next-line:no-string-literal
       this.data = data['data'];
       // tslint:disable-next-line:no-string-literal
@@ -45,9 +45,9 @@ export class LineComponent implements OnInit, OnDestroy {
       // tslint:disable-next-line:no-string-literal
       this.drawChart('line', chartData, legendDataArray, this.options);
     });
-    this.interactionHandler();
-    this.interactionService.enableLegend.next(true);
-    this.interactionService.enableLegendCheckbox.next(true);
+  this.interactionHandler();
+  this.interactionService.enableLegend.next(true);
+  this.interactionService.enableLegendCheckbox.next(true);
    }
 ngOnDestroy(): void{
   if (this.hideOrShowXGridSubs) { this.hideOrShowXGridSubs.unsubscribe(); }
@@ -188,6 +188,7 @@ drawChart(id: string, data, legendData: LegendData[], options: Options): void{
       });
        // tslint:disable-next-line:no-string-literal
       this.drawChart('line', chartData, res, this.options);
+      this.interactionService.hideLegend.next(false);
     }
 });
  }

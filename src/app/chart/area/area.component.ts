@@ -1,3 +1,4 @@
+import { LegendData } from './../../shared/model/legend.model';
 import { ChartGenerationService } from '../../shared/service/chart.generation.service';
 import { Options, ScaleProperties } from './../../shared/model/option.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -31,9 +32,22 @@ export class AreaComponent implements OnInit, OnDestroy{
        xAxis : {padding: 0}
      };
       // tslint:disable-next-line:no-string-literal
-      this.drawChart('area', data['data'], data['colors'], this.options);
+      this.data = data['data'];
+     // tslint:disable-next-line:no-string-literal
+      const legendDataArray =  this.prepareLegendData(data['colors']);
+      const chartData = [];
+      legendDataArray.forEach((d) => {
+      if (d.status){
+        // tslint:disable-next-line:no-string-literal
+       chartData.push(...this.data.filter(e => e['name'] === d['name']));
+      }
+    });
+      // tslint:disable-next-line:no-string-literal
+      this.drawChart('area',  chartData, legendDataArray, this.options);
     });
     this.interactionHandler();
+    this.interactionService.enableLegend.next(true);
+    this.interactionService.enableLegendCheckbox.next(true);
    }
    ngOnDestroy(): void{
     if (this.hideOrShowXGridSubs) { this.hideOrShowXGridSubs.unsubscribe(); }
@@ -41,7 +55,16 @@ export class AreaComponent implements OnInit, OnDestroy{
     if (this.enableXAxisSubs) { this.enableXAxisSubs.unsubscribe(); }
     if (this.enableYAxisSubs) { this.enableYAxisSubs.unsubscribe(); }
   }
-   drawChart(id, data, colors: [], options: Options): void{
+  prepareLegendData(colors): LegendData[]{
+    // tslint:disable-next-line:no-string-literal
+    const products = Array.from(d3.group(this.data, d => d['name']), ([key, value]) => ({key, value}));
+    const legendData: LegendData[] = [];
+    products.forEach((d, i) => {legendData.push({id: i, name: d.key, status: true , color: colors[i]}); });
+    this.interactionService.legendData.next(legendData);
+    return legendData;
+  }
+   drawChart(id, data, legendData: LegendData[], options: Options): void{
+    d3.select('#' + id).html('');
     const selectorSvg = this.chartGenerationService.buildSvg(id, options);
     const width = options.width - options.margin.left - options.margin.right;
     const height = options.height - options.margin.top - options.margin.bottom;
@@ -91,8 +114,8 @@ export class AreaComponent implements OnInit, OnDestroy{
     .classed('area', true)
     .append('path')
           .datum((d) => d.value)
-          .attr('fill',  (d, i) => colors[i])
-          .attr('stroke', (d, i) => colors[i])
+          .attr('fill',  (d, i) => legendData[i].color)
+          .attr('stroke', (d, i) => legendData[i].color)
           .attr('stroke-width', 1.5)
           .attr('d', area);
 
