@@ -4,7 +4,7 @@ export interface Options{
     margin?: Margin;
     backgroundColor?: string;
     responsive?: boolean;
-    xAxis: AxisProperties;
+    xAxis?: AxisProperties;
 }
 
 export interface AxisProperties{

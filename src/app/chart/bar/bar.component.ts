@@ -53,7 +53,7 @@ drawChart(id, data, options: Options): void{
                         };
    const yAxisOptions: ScaleProperties = {
        // tslint:disable-next-line:no-string-literal
-                                domain : [0, d3.max(data, (d) => +d['salary'])],
+                                domain : [0, d3.max(data, (d) => +d['salary']) * 1.2],
                                 range: [height, 0]
                               };
 

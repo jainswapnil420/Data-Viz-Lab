@@ -17,7 +17,7 @@ export class PieComponent implements OnInit {
     d3.json('/assets/data/pie-data.json').then((data) => {
       this.options = {
        width: 1200,
-       height: 520,
+       height: 470,
        margin : {top: 20, right: 20, bottom: 40, left: 50},
        backgroundColor: '',
        responsive: true,

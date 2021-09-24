@@ -2,4 +2,16 @@
     a {
         cursor: pointer;
     }
+    img.card-img-top {
+        height: 100px;
+    }
+    .card {
+        box-shadow: 5px 7px #d3d3d3;
+        &:hover {
+            box-shadow: 5px 7px #888888;
+        }
+    }
+    .card-body {
+        padding: 0.5rem;
+    }
 }

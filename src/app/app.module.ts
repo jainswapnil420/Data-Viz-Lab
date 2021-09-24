@@ -22,6 +22,7 @@ import { AboutComponent } from './helper/about/about.component';
 import { LegendComponent } from './shared/component/legend/legend.component';
 import { ContactComponent } from './helper/contact/contact.component';
 import { SidemenuComponent } from './helper/sidemenu/sidemenu.component';
+import { ForceLayoutComponent } from './chart/force-layout/force-layout.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { SidemenuComponent } from './helper/sidemenu/sidemenu.component';
     AboutComponent,
     LegendComponent,
     ContactComponent,
-    SidemenuComponent
+    SidemenuComponent,
+    ForceLayoutComponent
   ],
   imports: [
     BrowserModule,

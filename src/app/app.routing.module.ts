@@ -14,22 +14,24 @@ import { HomeComponent } from './helper/home/home.component';
 import { BarComponent } from './chart/bar/bar.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ForceLayoutComponent } from './chart/force-layout/force-layout.component';
 
 const appRoutes: Routes = [
-    {path: '', component: HomeComponent},
-    {path: 'about', component: AboutComponent},
-    {path: 'contact', component: ContactComponent},
-    {path: 'bar', component: BarComponent},
-    {path: 'line', component: LineComponent},
-    {path: 'area', component: AreaComponent},
-    {path: 'stack', component: StackComponent},
-    {path: 'pie', component: PieComponent},
-    {path: 'donut', component: DonutComponent},
-    {path: 'scatter', component: ScatterPlotComponent},
-    {path: 'horizontal-bar', component: HorizontalBarComponent},
-    {path: 'grouped-bar', component: GroupBarComponent},
-    {path: 'bubble', component: BubbleComponent},
-    {path: 'scatter-shape', component: ScatterWithShapesComponent}
+  { path: '', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: 'bar', component: BarComponent },
+  { path: 'line', component: LineComponent },
+  { path: 'area', component: AreaComponent },
+  { path: 'stack', component: StackComponent },
+  { path: 'pie', component: PieComponent },
+  { path: 'donut', component: DonutComponent },
+  { path: 'scatter', component: ScatterPlotComponent },
+  { path: 'horizontal-bar', component: HorizontalBarComponent },
+  { path: 'grouped-bar', component: GroupBarComponent },
+  { path: 'bubble', component: BubbleComponent },
+  { path: 'scatter-shape', component: ScatterWithShapesComponent },
+  { path: 'force-layout', component: ForceLayoutComponent },
 ];
 @NgModule({
     imports : [RouterModule.forRoot(appRoutes)],

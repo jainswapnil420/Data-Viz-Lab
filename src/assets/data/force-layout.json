@@ -1,0 +1,110 @@
+{
+    "nodes": [{
+            "name": "Alpha",
+            "label": "Alpha",
+            "id": 1
+        },
+        {
+            "name": "Beta",
+            "label": "Beta",
+            "id": 2
+        },
+        {
+            "name": "Gamma",
+            "label": "Gamma",
+            "id": 3
+        },
+        {
+            "name": "Delta",
+            "label": "Delta",
+            "id": 4
+        },
+        {
+            "name": "Mu",
+            "label": "Mu",
+            "id": 5
+        },
+        {
+            "name": "Nu",
+            "label": "Nu",
+            "id": 6
+        },
+        {
+            "name": "Zeta",
+            "label": "Zeta",
+            "id": 7
+        },
+        {
+            "name": "Theta",
+            "label": "Theta",
+            "id": 8
+        },
+        {
+            "name": "Pi",
+            "label": "Pi",
+            "id": 9
+        },
+        {
+            "name": "Phi",
+            "label": "Phi",
+            "id": 10
+        }
+    ],
+    "links": [{
+            "source": 1,
+            "target": 2,
+            "type": "model",
+            "since": 2010
+        },
+        {
+            "source": 1,
+            "target": 3,
+            "type": "view"
+        },
+        {
+            "source": 6,
+            "target": 7,
+            "type": "model"
+        },
+        {
+            "source": 8,
+            "target": 9,
+            "type": "model"
+        },
+        {
+            "source": 1,
+            "target": 8,
+            "type": "view"
+        },
+        {
+            "source": 2,
+            "target": 5,
+            "type": "view"
+        },
+        {
+            "source": 5,
+            "target": 6,
+            "type": "resolved"
+        },
+        {
+            "source": 5,
+            "target": 1,
+            "type": "resolved"
+        },
+        {
+            "source": 8,
+            "target": 9,
+            "type": "resolved"
+        },
+        {
+            "source": 1,
+            "target": 10,
+            "type": "resolved"
+        },
+        {
+            "source": 4,
+            "target": 6,
+            "type": "resolved"
+        }
+    ]
+}
