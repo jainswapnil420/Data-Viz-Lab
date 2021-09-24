@@ -75,17 +75,22 @@ drawChart(id, data, options: Options): void{
 
    const chartContainer = selectorSvg.append('g').classed('chart-container', true);
 
-   chartContainer.selectAll('.bar')
-                  .data(data)
-                  .enter().append('rect')
-                  .attr('class', 'bar')
-                  // tslint:disable-next-line:no-string-literal
-                  .attr('x', (d) => xAxis(d['name']))
-                  .attr('width', xAxis.bandwidth())
-                  // tslint:disable-next-line:no-string-literal
-                  .attr('y', (d) => yAxis(d['salary']))
-                  // tslint:disable-next-line:no-string-literal
-                  .attr('height', (d) => height - yAxis(d['salary']));
+   chartContainer
+     .selectAll('.bar')
+     .data(data)
+     .enter()
+     .append('rect')
+     .attr('class', 'bar')
+     // tslint:disable-next-line:no-string-literal
+     .attr('x', (d) => xAxis(d['name']))
+     .attr('width', xAxis.bandwidth())
+     .attr('y', height)
+     .transition() // <---- Here is the transition
+     .duration(1500)
+     // tslint:disable-next-line:no-string-literal
+     .attr('y', (d) => yAxis(d['salary']))
+     // tslint:disable-next-line:no-string-literal
+     .attr('height', (d) => height - yAxis(d.salary));
   }
   interactionHandler(): void{
     // Handle hide or show x grid

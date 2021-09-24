@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   components = [
     {
-      name: 'Force Directed Graph',
+      name: 'Force Layout Graph',
       src: '/assets/thumbnails/force-layout.jpg',
       route: '/force-layout',
     },

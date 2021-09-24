@@ -121,26 +121,44 @@ drawChart(id: string, data, legendData: LegendData[], options: Options): void{
           .attr('id', (d, i) => 'item' + i)
           .classed('line', true);
 
-  container.append('path')
-                .datum((d) => d.value)
-                .attr('fill', 'none')
-                .attr('stroke', (d) => colorScale(d[0].name))
-                .attr('stroke-width', 1.5)
-                .attr('d', line);
+  container
+    .append('path')
+    .datum((d) => d.value)
+    .attr('fill', 'none')
+    .attr('stroke', (d) => colorScale(d[0].name))
+    .attr('stroke-width', 1.5)
+    .attr('d', line)
+    .call(this.transition.bind(this));
 
-  container.selectAll('circle')
-                .data((d) => d.value)
-                .enter()
-                .append('circle')
-                .classed('circle', true)
-                .attr('r', 3)
-                .attr('cx', (d) => xAxis(d.year))
-                .attr('cy', (d) => yAxis(d.sales))
-                .style('stroke', (d) => colorScale(d.name));
+  container
+    .selectAll('circle')
+    .data((d) => d.value)
+    .enter()
+    .append('circle')
+    .classed('circle', true)
+    .attr('cx', (d) => xAxis(d.year))
+    .attr('cy', (d) => yAxis(d.sales))
+    .transition()
+
+    .delay((d,i) => 350 * i)
+    .attr('r', 3)
+    .style('stroke', (d) => colorScale(d.name));
 
 }
 
- interactionHandler(): void{
+// From https://bl.ocks.org/mbostock/5649592
+private transition(path): void {
+        path.transition()
+            .duration(2000)
+            .attrTween('stroke-dasharray', this.tweenDash);
+}
+private tweenDash(): any {
+        const l = this.getTotalLength();
+        const i = d3.interpolateString('0,' + l, l + ',' + l);
+        return (t) => i(t);
+}
+
+interactionHandler(): void{
    // Handle hide or show x grid
   this.hideOrShowXGridSubs = this.interactionService.hideXGrid.subscribe(res => {
     if (res){
