@@ -7,7 +7,7 @@
         "Mercedez": 17
     }, {
         "year": 2016,
-        "AUDI": 39,
+        "AUDI": 89,
         "BMW": 56,
         "Ferrari": 59,
         "Mercedez": 121
@@ -21,14 +21,14 @@
         "year": 2018,
         "AUDI": 62,
         "BMW": 89,
-        "Ferrari": 98,
+        "Ferrari": 78,
         "Mercedez": 21
     }, {
         "year": 2019,
-        "AUDI": 37,
+        "AUDI": 57,
         "BMW": 55,
-        "Ferrari": 13,
-        "Mercedez": 32
+        "Ferrari": 33,
+        "Mercedez": 52
     }, {
         "year": 2020,
         "AUDI": 72,
@@ -58,7 +58,7 @@
         "AUDI": 56,
         "BMW": 79,
         "Ferrari": 77,
-        "Mercedez": 40
+        "Mercedez": 80
     }],
     "colors": [
         "steelblue",

@@ -81,14 +81,10 @@ export class StackComponent implements OnInit, OnDestroy {
                          };
     const yAxisOptions: ScaleProperties = {
         // tslint:disable-next-line:no-string-literal
-                                 domain : [0, max],
+                                 domain : [0, max * 1.1],
                                  range: [height, 0]
                                };
-    const colorOptions: ScaleProperties = {
-                                // tslint:disable-next-line:no-string-literal
-                                                         domain : keyGroup,
-                                                         range: colors
-                                                       };
+    const colorOptions: ScaleProperties = {domain : keyGroup, range: colors };
     const colorScale = this.chartGenerationService.computeOrdinalScale(colorOptions);
 
     const xAxis = this.chartGenerationService.computeBandScale(xAxisOptions);
@@ -109,21 +105,22 @@ export class StackComponent implements OnInit, OnDestroy {
 
     const chartContainer = selectorSvg.append('g').classed('chart-container', true);
     const sel = chartContainer
-    .selectAll('g.series')
-    .data(stackSeries)
-    .enter()
-    .append('g')
-    .classed('series', true)
-    .style('fill', (d, i) => colorScale(d.key));
+      .selectAll('g.series')
+      .data(stackSeries)
+      .enter()
+      .append('g')
+      .classed('series', true)
+      .style('fill', (d, i) => colorScale(d.key));
 
-    sel.selectAll('rect')
+    const rectG =   sel.selectAll('rect')
     .data((d) => d)
     .enter()
     .append('rect')
     .attr('width', xAxis.bandwidth())
-    .attr('y', (d) => yAxis(d[1]))
     .attr('x', (d) => xAxis(d.data.year))
-    .attr('height', (d) => {
+    .attr('y', height);
+
+    rectG  .transition().duration(2000)  .attr('y', (d) => yAxis(d[1])) .attr('height', (d) => {
       return +yAxis(d[0]) - +yAxis(d[1]);
     });
   }

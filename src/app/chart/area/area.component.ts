@@ -97,27 +97,36 @@ export class AreaComponent implements OnInit, OnDestroy{
 
     const chartContainer = selectorSvg.append('g').classed('chart-container', true);
           // Add the line
-    const area = d3.area()
-    // tslint:disable-next-line: no-string-literal
-    .x((d) => xAxis(d['year']))
-    .y0(yAxis(0))
-    // tslint:disable-next-line:no-string-literal
-    .y1((d) => yAxis(d['sales']));
+    const area = (datum, flag) => {
+   return   d3
+        .area()
+        .x( (d) => {
+          // tslint:disable-next-line: no-string-literal
+          return flag ? xAxis(d['year']) : 0;
+        })
+        .y0(yAxis(0))
+        // tslint:disable-next-line:no-string-literal
+        .y1((d) => yAxis(d['sales']))(datum);
+    };
 
 
     // tslint:disable-next-line:no-string-literal
     const products = Array.from(d3.group(data, d => d['name']), ([key, value]) => ({key, value}));
-    chartContainer.selectAll('line')
-    .data(products)
-    .enter()
-    .append('g')
-    .classed('area', true)
-    .append('path')
-          .datum((d) => d.value)
-          .attr('fill',  (d, i) => legendData[i].color)
-          .attr('stroke', (d, i) => legendData[i].color)
-          .attr('stroke-width', 1.5)
-          .attr('d', area);
+    chartContainer
+      .selectAll('line')
+      .data(products)
+      .enter()
+      .append('g')
+      .classed('area', true)
+      .append('path')
+      .datum((d) => d.value)
+      .attr('fill', (d, i) => legendData[i].color)
+      .attr('stroke', (d, i) => legendData[i].color)
+      .attr('stroke-width', 1.5)
+      .attr('d', (d) => area(d, false))
+      .transition()
+      .duration(2000)
+      .attr('d', (d) => area(d, true));
 
    }
    interactionHandler(): void{
