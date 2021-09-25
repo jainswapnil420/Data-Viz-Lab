@@ -53,11 +53,24 @@ export class DonutComponent implements OnInit {
                 .data(pie(data));
 
     // Enter new arcs
-    path.enter().append('path')
-                .attr('fill', (d, i) => colors[i])
-                .attr('d', arc)
-                .attr('stroke', 'white')
-                .attr('stroke-width', '2px');
+    path
+      .enter()
+      .append('path')
+      .attr('fill', (d, i) => colors[i])
+      /* .attr('d', arc) */
+      .attr('stroke', 'white')
+      .attr('stroke-width', '2px')
+      .transition()
+      .delay((d, i) => {
+        return i * 400;
+      })
+      .attrTween('d', (d) => {
+        const i = d3.interpolate(d.startAngle + 0.1, d.endAngle);
+        return (t) => {
+          d.endAngle = i(t);
+          return arc(d);
+        };
+      });
 
    }
 

@@ -86,7 +86,8 @@ drawChart(id, data, options: Options): void{
      .attr('width', xAxis.bandwidth())
      .attr('y', height)
      .transition() // <---- Here is the transition
-     .duration(1500)
+     .duration(1000)
+     .delay((d, i) => 300 * i)
      // tslint:disable-next-line:no-string-literal
      .attr('y', (d) => yAxis(d['salary']))
      // tslint:disable-next-line:no-string-literal
